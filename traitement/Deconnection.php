@@ -2,9 +2,12 @@
 require_once '../model/Utilisateur.php';
 require_once '../manager/Manager.php';
 
+#Instancie la classe Utilisateur
 $a = new Utilisateur([
   'email' => $_POST['email']
 ]);
+#Instancie la classe Manager
 $b = new Manager();
-$b->deconnexion($a);
+#Lance la méthode deconnection
+$b->deconnection($a);
 ?>

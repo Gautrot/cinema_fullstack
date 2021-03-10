@@ -60,10 +60,10 @@ class Manager{
 
 # Connexion
 
-  public function connexion($user) {
+  public function connection($user) {
 # Instancie la classe BDD
     $bdd = new BDD();
-    $req = $bdd->co_bdd()->prepare('SELECT * FROM utilisateur
+    $req = $bdd->co_bdd()->prepare('SELECT email, mdp FROM utilisateur
       WHERE email = :email
       AND mdp = :mdp
     ');
@@ -76,7 +76,7 @@ class Manager{
     if ($res) {
       $_SESSION['nom'] = $res['nom'];
       $_SESSION['rang'] = $res['rang'];
-      header("Location: ../vue/accueil.php");
+      header("Location: ../vue/Accueil.php");
     }
 
 # Si la saisie du mot de passe ou de l'e-mail est incorrecte.
@@ -89,7 +89,7 @@ class Manager{
 
 # Déconnexion
 
-  public function deconnexion($user) {
+  public function deconnection($user) {
     session_destroy();
     header("Location: ../index.php");
   }
@@ -99,7 +99,7 @@ class Manager{
   public function inscription($user) {
     #Instancie la classe BDD
     $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT email FROM user
+    $req = $bdd -> co_bdd()->prepare('SELECT email FROM utilisateur
       WHERE email = :email
     ');
     $req -> execute([
@@ -107,45 +107,35 @@ class Manager{
     ]);
     $res = $req -> fetchall();
 
-# Si un ou plusieurs champs sont vides.
-
-    if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['mdp']) || empty($_POST['email'])) {
-      header("Location: ../index.php");
-      throw new Exception("Un ou plusieurs champs sont vides.");
-    }
-
 # Si le compte existe dans la BDD.
 
-    else if ($res) {
-      header("Location: ../index.php");
+    if ($res) {
+      header("Location: ../vue/Inscription.php");
       throw new Exception("Ce compte existe.");
     }
 
     else {
-      $req = $bdd -> co_bdd()->prepare('INSERT INTO user (email, mdp, nom, prenom, rang)
-      VALUES (:email, :mdp, :nom, :prenom, :rang)
+      $req = $bdd -> co_bdd()->prepare('INSERT INTO utilisateur (email, mdp, nom, prenom, rang, idTarif)
+      VALUES (:email, :mdp, :nom, :prenom, :rang, :idTarif)
       ');
       $res2 = $req -> execute([
         'email' => $user->getEmail(),
         'mdp' => $user->getMdp(),
-        'nom' => $user->getnom(),
+        'nom' => $user->getNom(),
         'prenom' => $user->getPrenom(),
-        'rang' => $user->getRang()
+        'rang' => $user->getRang(),
+        'idTarif' => $user->getIdTarif()
        ]);
 
       if ($res2) {
-        header("Location: ../vue/espace_client.php");
+        header("Location: ../index.php");
+        throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
       }
 
 # Si un ou plusieurs champs sont vides.
 
-      else if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['mdp']) || empty($_POST['email'])) {
-        header("Location: ../index.php");
-        throw new Exception("Un ou plusieurs champs sont vides.");
-      }
-
       else {
-        header("Location: ../index.php");
+        header("Location: ../vue/Inscription.php");
         throw new Exception("Inscription échouée !");
       }
     }

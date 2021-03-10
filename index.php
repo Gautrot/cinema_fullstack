@@ -1,6 +1,6 @@
 <?php
-require_once 'model/utilisateur.php';
-require_once 'manager/manager.php';
+require_once 'model/Utilisateur.php';
+require_once 'manager/Manager.php';
 ?>
 
 <!doctype html>
@@ -37,29 +37,36 @@ require_once 'manager/manager.php';
                 '.$_SESSION['erreur'].'
               </div>';
       }
+      if (isset($_SESSION['succes'])) {
+        echo '<div class="col-xl-12 col-lg-10 col-md-8 card card-body o-hidden border-0 shadow-lg my-5 text-center alert alert-success" role="alert">
+                '.$_SESSION['succes'].'
+              </div>';
+      }
       ?>
       <div class="mx-auto col-xl-6 col-lg-6 col-md-6 card card-body o-hidden border-0 shadow-lg my-5 text-center">
         <form method="post" action="traitement/Connection.php">
           <h1 class="h3 m-3 fw-normal">Se connecter</h1>
-          <label for="inputEmail" class="visually-hidden">E-mail</label>
-          <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
-          <label for="inputPassword" class="visually-hidden">Mot de passe</label>
-          <input type="password" name="mdp" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+          <div class="m-1">
+            <input type="email" name="email" class="form-control" placeholder="E-mail" required autofocus>
+          </div>
+          <div class="m-1">
+            <input type="password" name="mdp" class="form-control" placeholder="Mot de passe" required>
+          </div>
           <div class="checkbox m-3">
             <label>
               <input type="checkbox" value="remember-me"> Se souvenir de moi
             </label>
           </div>
-          <button class="w-100 btn btn-lg btn-primary" type="submit">Se connecter</button>
+          <button class="w-50 btn btn-primary" type="submit">Se connecter</button>
           <div class="text-center mt-2">
-            <a class="small">Mot de passe oublié ?</a>
+            <a class="small" href="vue/Oublie.php">Mot de passe oublié ?</a>
           </div>
           <div class="text-center mt-0 mb-2">
-            <a class="small">Vous êtes nouveau ? Inscrivez-vous !</a>
+            <a class="small" href="vue/Inscription.php">Vous êtes nouveau ? Inscrivez-vous !</a>
           </div>
         </form>
       </div>
-      <p class="mb-3 text-muted">&copy; 2021</p>
+      <p class="mb-3 text-muted">&copy; 2021 - Projet</p>
     </div>
   </body>
 </html>

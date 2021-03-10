@@ -1,6 +1,6 @@
 <?php
 class Utilisateur{
-  private $nom, $mdp, $email, $prenom, $rang, $idUtil;
+  private $idUtil, $nom, $prenom, $email, $mdp, $rang, $idTarif;
 
   public function __construct($donnees){
     $this->hydrate($donnees);
@@ -10,6 +10,10 @@ class Utilisateur{
 
   public function getIdUtil() {
     return $this->idUtil;
+  }
+
+  public function getIdTarif() {
+    return $this->idTarif;
   }
 
   public function getEmail() {
@@ -36,6 +40,10 @@ class Utilisateur{
 
   public function setIdUtil($idUtil) {
     $this->idUtil = $idUtil;
+  }
+
+  public function setIdTarif($idTarif) {
+    $this->idTarif = $idTarif;
   }
 
   public function setEmail($email) {
