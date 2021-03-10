@@ -2,7 +2,7 @@
 # Appelle le ficher 'bdd.php'
 require_once 'BDD.php';
 
-/*
+/* PHPMAILER
 # PHPMailer
 // Import PHPMailer classes into the global namespace
 // these must be at the top of your script, not inside a function
