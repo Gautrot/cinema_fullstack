@@ -28,7 +28,7 @@ if ($_POST['mdp'] === $_POST['mdpconfirm'] && $_POST['email'] === $_POST['emailc
 
 #Affiche un message d'erreur
 else {
-  header("Location: ../index.php");
+  header("Location: ../vue/Inscription.php");
   echo 'Erreur : Les mots de passes ou e-mails ne sont pas identiques.';
 }
 var_dump($user);

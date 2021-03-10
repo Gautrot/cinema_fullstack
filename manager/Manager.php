@@ -219,6 +219,17 @@ class Manager{
 
   }
 
+# Liste les tarifs de la BDD
+
+  public function tarif(){
+    #Instancie la classe BDD
+    $bdd = new BDD();
+    $req = $bdd -> co_bdd()->prepare('SELECT * FROM tarif');
+    $req -> execute([]);
+    $tarif = $req->fetchall();
+    return $tarif;
+  }
+
 # Liste les utilisateurs de la BDD
 
 public function listUtilisateur(){
