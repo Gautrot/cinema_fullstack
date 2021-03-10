@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 10 mars 2021 à 08:15
+-- Généré le :  mer. 10 mars 2021 à 09:07
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -31,10 +31,10 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `film`;
 CREATE TABLE IF NOT EXISTS `film` (
   `idFilm` smallint(5) NOT NULL,
-  `nomFilm` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `resumeFilm` text CHARACTER SET utf8 COLLATE utf8_bin,
+  `nomFilm` varchar(40) COLLATE utf8_bin DEFAULT NULL,
+  `resumeFilm` text COLLATE utf8_bin,
   PRIMARY KEY (`idFilm`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS `recap` (
 DROP TABLE IF EXISTS `salle`;
 CREATE TABLE IF NOT EXISTS `salle` (
   `idSalle` smallint(5) NOT NULL,
-  `numSalle` varchar(2) COLLATE utf8_bin DEFAULT NULL,
-  `numPlace` int(11) DEFAULT NULL,
+  `numSalle` int(3) DEFAULT NULL,
+  `numPlace` int(3) DEFAULT NULL,
   `idFilm` smallint(5) NOT NULL,
   PRIMARY KEY (`idSalle`),
   KEY `idFilm` (`idFilm`)
@@ -73,10 +73,10 @@ CREATE TABLE IF NOT EXISTS `salle` (
 --
 
 INSERT INTO `salle` (`idSalle`, `numSalle`, `numPlace`, `idFilm`) VALUES
-(1, '01', 100, 0),
-(2, '11', 100, 0),
-(3, '14', 100, 0),
-(4, '07', 100, 0);
+(1, 1, 100, 0),
+(2, 11, 100, 0),
+(3, 14, 100, 0),
+(4, 7, 100, 0);
 
 -- --------------------------------------------------------
 
@@ -88,7 +88,7 @@ DROP TABLE IF EXISTS `tarif`;
 CREATE TABLE IF NOT EXISTS `tarif` (
   `idTarif` smallint(5) NOT NULL,
   `nomTarif` varchar(10) COLLATE utf8_bin DEFAULT NULL,
-  `prixTarif` varchar(5) COLLATE utf8_bin DEFAULT NULL,
+  `prixTarif` char(5) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`idTarif`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
