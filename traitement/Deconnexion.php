@@ -9,5 +9,5 @@ $a = new Utilisateur([
 #Instancie la classe Manager
 $b = new Manager();
 #Lance la méthode deconnection
-$b->deconnection($a);
+$b->deconnexion($a);
 ?>

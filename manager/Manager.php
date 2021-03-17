@@ -1,7 +1,9 @@
 <?php
 # Appelle le ficher 'BDD.php'
 require_once 'BDD.php';
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 /*
 # PHPMailer
 // Import PHPMailer classes into the global namespace
@@ -61,10 +63,10 @@ class Manager{
 
 # Connexion
 
-  public function connection($user) {
+  public function connexion($user) {
 # Instancie la classe BDD
     $bdd = new BDD();
-    $req = $bdd->co_bdd()->prepare('SELECT email, mdp FROM utilisateur
+    $req = $bdd->co_bdd()->prepare('SELECT * FROM utilisateur
       WHERE email = :email
       AND mdp = :mdp
     ');
@@ -75,7 +77,10 @@ class Manager{
     $res = $req -> fetch();
 
     if ($res) {
+      $_SESSION['idUtil'] = $res['idUtil'];
       $_SESSION['nom'] = $res['nom'];
+      $_SESSION['prenom'] = $res['prenom'];
+      $_SESSION['email'] = $res['email'];
       $_SESSION['rang'] = $res['rang'];
       header("Location: ../vue/Accueil.php");
     }
@@ -90,7 +95,7 @@ class Manager{
 
 # Déconnexion
 
-  public function deconnection($user) {
+  public function deconnexion($user) {
     session_destroy();
     header("Location: ../index.php");
   }
@@ -142,72 +147,48 @@ class Manager{
     }
   }
 
-# Récupération d'un compte
-
-  public function recupSession($user){
-    #Instancie la classe BDD
-    $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT email FROM user
-      WHERE email = :email
-    ');
-    $req -> execute([
-      'email' => $user
-    ]);
-    $res = $req->fetch();
-    return $res;
-  }
-
 # Modification d'un compte
 
   public function modifier($user) {
     #Instancie la classe BDD
     $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT email FROM user
+    $req = $bdd -> co_bdd()->prepare('SELECT * FROM utilisateur
       WHERE email = :email
+      AND idUtil = :idUtil
     ');
     $req -> execute([
-      'email' => $user->getEmail()
+      'email' => $user->getEmail(),
+      'idUtil' => $user->getIdUtil()
     ]);
     $res = $req -> fetch();
 
-# Si un ou plusieurs champs sont vides.
-
-    if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['mdp']) || empty($_POST['email'])) {
-      header("Location: ../index.php");
-      throw new Exception("Un ou plusieurs champs sont vides.");
-    }
-
-    else if ($res) {
-      $req = $bdd -> co_bdd()->prepare('UPDATE user
+    if ($res) {
+      $req = $bdd -> co_bdd()->prepare('UPDATE utilisateur
       SET email = :email,
           mdp = :mdp,
           nom = :nom,
-          prenom = :prenom,
-          datenaissance = :datenaissance,
-      WHERE id = :id
+          prenom = :prenom
+      WHERE idUtil = :idUtil
       ');
       $res2 = $req -> execute([
-        'id' => $res['id'],
         'email' => $user->getEmail(),
         'mdp' => $user->getMdp(),
-        'nom' => $user->getnom(),
+        'nom' => $user->getNom(),
         'prenom' => $user->getPrenom(),
-        'datenaissance' => $user->getDatenaissance()
+        'idUtil' => $user->getIdUtil()
       ]);
 
       if ($res2) {
-        header("Location: ../vue/espace_client.php");
-      }
-
-# Si un ou plusieurs champs sont vides.
-
-      else if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['mdp']) || empty($_POST['email'])) {
-        header("Location: ../vue/modifier.php");
-        throw new Exception("Un ou plusieurs champs sont vides.");
+        $_SESSION['nom'] = $res2['nom'];
+        $_SESSION['prenom'] = $res2['prenom'];
+        $_SESSION['email'] = $res2['email'];
+        //
+        header("Location: ../vue/Accueil.php");
+        //throw new Exception("Votre compte à été modifié avec succès !");
       }
 
       else {
-        header("Location: ../vue/modifier.php");
+        header("Location: ../vue/Modifier.php");
         throw new Exception("Modification échouée !");
       }
     }
@@ -221,24 +202,35 @@ class Manager{
 
 # Liste les tarifs de la BDD
 
-  public function tarif(){
+  public function listeTarif(){
     #Instancie la classe BDD
     $bdd = new BDD();
     $req = $bdd -> co_bdd()->prepare('SELECT * FROM tarif');
     $req -> execute([]);
-    $tarif = $req->fetchall();
-    return $tarif;
+    $listetarif = $req->fetchall();
+    return $listetarif;
+  }
+
+# Liste les films de la BDD
+
+  public function listeFilm(){
+    #Instancie la classe BDD
+    $bdd = new BDD();
+    $req = $bdd -> co_bdd()->prepare('SELECT * FROM film');
+    $req -> execute([]);
+    $listefilm = $req->fetchall();
+    return $listefilm;
   }
 
 # Liste les utilisateurs de la BDD
 
-public function listUtilisateur(){
+public function listeUtilisateur(){
   #Instancie la classe BDD
   $bdd = new BDD();
   $req = $bdd -> co_bdd()->prepare('SELECT * FROM user');
   $req -> execute([]);
-  $rescd = $req->fetchall();
-  return $rescd;
+  $listeuser = $req->fetchall();
+  return $listeuser;
 }
 
 # Barre de recherche
@@ -338,254 +330,6 @@ Partie Administration
     if ($res) {
       session_destroy();
       header("Location: ../vue/tabl_utilisateur.php");
-    }
-  }
-
-/*
-----
-Livre
-----
-*/
-
-# Liste les livres de la BDD
-
-public function listLivre(){
-  #Instancie la classe BDD
-  $bdd = new BDD();
-  $req = $bdd -> co_bdd()->prepare('SELECT * FROM livre');
-  $req -> execute([]);
-  $resliv = $req->fetchall();
-  return $resliv;
-}
-
-# Ajout d'un livre
-
-  public function ajoutLiv($livre) {
-    #Instancie la classe BDD
-    $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT * FROM livre
-      WHERE livnom = :livnom
-    ');
-    $req -> execute([
-      'livnom' => $livre->getLivnom()
-    ]);
-    $res = $req -> fetchall();
-
-# Si un ou plusieurs champs sont vides.
-
-    if (empty($_POST['livnom']) || empty($_POST['livaut']) || empty($_POST['livth'])) {
-      header("Location: ../vue/tableau.php");
-      throw new Exception("Un ou plusieurs champs sont vides.");
-    }
-
-# Si le livre existe dans la BDD.
-
-    else if ($res) {
-      header("Location: ../vue/tableau.php");
-      throw new Exception("Ce livre existe.");
-    }
-
-    else {
-      $req = $bdd -> co_bdd()->prepare('INSERT INTO livre (livnom, livaut, livth)
-        VALUES (:livnom, :livaut, :livth)
-      ');
-      $res2 = $req -> execute([
-        'livnom' => $livre->getLivnom(),
-        'livaut' => $livre->getLivaut(),
-        'livth' => $livre->getLivth()
-       ]);
-
-      if ($res2) {
-        header("Location: ../vue/tableau.php");
-      }
-
-# Si un ou plusieurs champs sont vides.
-
-      else if (empty($_POST['livnom']) || empty($_POST['livaut']) || empty($_POST['livth'])) {
-        header("Location: ../vue/tableau.php");
-        throw new Exception("Un ou plusieurs champs sont vides.");
-      }
-
-      else {
-        header("Location: ../vue/tableau.php");
-        throw new Exception("Ajout échouée !");
-      }
-    }
-  }
-
-# Modification d'un livre
-
-  public function modifLiv($livre) {
-    #Instancie la classe BDD
-    $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT * FROM livre
-      WHERE livnom = :livnom
-    ');
-    $req -> execute([
-      'livnom' => $livre->getLivnom()
-    ]);
-    $res = $req -> fetch();
-
-# Si un ou plusieurs champs sont vides.
-
-    if (empty($_POST['livnom']) || empty($_POST['livaut']) || empty($_POST['livth'])) {
-      header("Location: ../vue/modif_liv.php");
-      throw new Exception("Un ou plusieurs champs sont vides.");
-    }
-
-    else if ($res) {
-      $req = $bdd -> co_bdd()->prepare('UPDATE livre
-      SET livnom = :livnom,
-          livaut = :livaut,
-          livth = :livth
-      WHERE refliv = :refliv
-      ');
-      $res2 = $req -> execute([
-        'refliv' => $livre->getRefliv(),
-        'livnom' => $livre->getLivnom(),
-        'livaut' => $livre->getLivaut(),
-        'livth' => $livre->getLivth()
-      ]);
-
-      if ($res2) {
-        header("Location: ../vue/livres.php");
-      }
-
-# Si un ou plusieurs champs sont vides.
-
-      else if (empty($_POST['livnom']) || empty($_POST['livaut']) || empty($_POST['livth'])) {
-        header("Location: ../vue/modif_liv.php");
-        throw new Exception("Un ou plusieurs champs sont vides.");
-      }
-
-      else {
-        header("Location: ../vue/modif_liv.php");
-        throw new Exception("Modification échouée !");
-      }
-    }
-  }
-
-/*
-----
-CD
-----
-*/
-
-# Liste les cd de la BDD
-
-public function listCD(){
-  #Instancie la classe BDD
-  $bdd = new BDD();
-  $req = $bdd -> co_bdd()->prepare('SELECT * FROM cd');
-  $req -> execute([]);
-  $rescd = $req->fetchall();
-  return $rescd;
-}
-
-# Ajout d'un cd
-
-  public function ajoutCd($cd) {
-    #Instancie la classe BDD
-    $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT * FROM cd
-      WHERE cdnom = :cdnom
-    ');
-    $req -> execute([
-      'cdnom' => $cd->getCdnom()
-    ]);
-    $res = $req -> fetchall();
-
-# Si un ou plusieurs champs sont vides.
-
-    if (empty($_POST['cdnom']) || empty($_POST['cdaut']) || empty($_POST['cdth'])) {
-      header("Location: ../vue/tableau.php");
-      throw new Exception("Un ou plusieurs champs sont vides.");
-    }
-
-# Si le cd existe dans la BDD.
-
-    else if ($res) {
-      header("Location: ../vue/tableau.php");
-      throw new Exception("Ce CD existe.");
-    }
-
-    else {
-      $req = $bdd -> co_bdd()->prepare('INSERT INTO cd (cdnom, cdaut, cdth)
-        VALUES (:cdnom, :cdaut, :cdth)
-      ');
-      $res2 = $req -> execute([
-        'cdnom' => $cd->getCdnom(),
-        'cdaut' => $cd->getCdaut(),
-        'cdth' => $cd->getCdth()
-       ]);
-
-      if ($res2) {
-        header("Location: ../vue/tableau.php");
-      }
-
-# Si un ou plusieurs champs sont vides.
-
-      else if (empty($_POST['cdnom']) || empty($_POST['cdaut']) || empty($_POST['cdth'])) {
-        header("Location: ../vue/tableau.php");
-        throw new Exception("Un ou plusieurs champs sont vides.");
-      }
-
-      else {
-        header("Location: ../vue/tableau.php");
-        throw new Exception("Ajout échouée !");
-      }
-    }
-  }
-
-# Modification d'un cd
-
-  public function modifCd($cd) {
-    #Instancie la classe BDD
-    $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT * FROM cd
-      WHERE cdnom = :cdnom
-    ');
-    $req -> execute([
-      'cdnom' => $cd->getCdnom()
-    ]);
-    $res = $req -> fetch();
-
-# Si un ou plusieurs champs sont vides.
-
-    if (empty($_POST['cdnom']) || empty($_POST['cdaut']) || empty($_POST['cdth'])) {
-      header("Location: ../vue/modif_cd.php");
-      throw new Exception("Un ou plusieurs champs sont vides.");
-    }
-
-    else if ($res) {
-      $req = $bdd -> co_bdd()->prepare('UPDATE cd
-      SET cdnom = :cdnom,
-          cdaut = :cdaut,
-          cdth = :cdth
-      WHERE refcd = :refcd
-      ');
-      $res2 = $req -> execute([
-        'refcd' => $cd->getRefcd(),
-        'cdnom' => $cd->getCdnom(),
-        'cdaut' => $cd->getCdaut(),
-        'cdth' => $cd->getCdth()
-      ]);
-
-      if ($res2) {
-        header("Location: ../vue/cdres.php");
-      }
-
-# Si un ou plusieurs champs sont vides.
-
-      else if (empty($_POST['cdnom']) || empty($_POST['cdaut']) || empty($_POST['cdth'])) {
-        header("Location: ../vue/modif_cd.php");
-        throw new Exception("Un ou plusieurs champs sont vides.");
-      }
-
-      else {
-        header("Location: ../vue/modif_cd.php");
-        throw new Exception("Modification échouée !");
-      }
     }
   }
 
