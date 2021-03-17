@@ -80,6 +80,7 @@ class Manager{
       $_SESSION['prenom'] = $res['prenom'];
       $_SESSION['email'] = $res['email'];
       $_SESSION['rang'] = $res['rang'];
+      session_start();
       header("Location: ../vue/Accueil.php");
     }
 
@@ -152,9 +153,11 @@ class Manager{
     $bdd = new BDD();
     $req = $bdd -> co_bdd()->prepare('SELECT * FROM utilisateur
       WHERE email = :email
+      AND idUtil = :idUtil
     ');
     $req -> execute([
-      'email' => $user->getEmail()
+      'email' => $user->getEmail(),
+      'idUtil' => $user->getIdUtil()
     ]);
     $res = $req -> fetch();
 
@@ -164,25 +167,27 @@ class Manager{
           mdp = :mdp,
           nom = :nom,
           prenom = :prenom
-      WHERE utilisateur.idUtil = :idUtil
+      WHERE idUtil = :idUtil
       ');
       $res2 = $req -> execute([
         'email' => $user->getEmail(),
         'mdp' => $user->getMdp(),
         'nom' => $user->getNom(),
-        'prenom' => $user->getPrenom()
+        'prenom' => $user->getPrenom(),
+        'idUtil' => $user->getIdUtil()
       ]);
 
       if ($res2) {
-        $_SESSION['nom'] = $res['nom'];
-        $_SESSION['prenom'] = $res['prenom'];
-        $_SESSION['email'] = $res['email'];
-        //header("Location: ../vue/Accueil.php");
-        throw new Exception("Votre compte à été modifié avec succès !");
+        $_SESSION['nom'] = $res2['nom'];
+        $_SESSION['prenom'] = $res2['prenom'];
+        $_SESSION['email'] = $res2['email'];
+        //
+        header("Location: ../vue/Accueil.php");
+        //throw new Exception("Votre compte à été modifié avec succès !");
       }
 
       else {
-        ///header("Location: ../vue/Modifier.php");
+        header("Location: ../vue/Modifier.php");
         throw new Exception("Modification échouée !");
       }
     }

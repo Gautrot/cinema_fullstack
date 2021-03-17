@@ -13,7 +13,7 @@ if ($_POST['mdp'] === $_POST['mdpconfirm']) {
       'mdp' => $_POST['mdp'],
       'email' => $_POST['email']
     ]);
-    var_dump($user);
+    //var_dump($user);
     //die();
     #Instancie la classe Manager
     $manager = new Manager();
