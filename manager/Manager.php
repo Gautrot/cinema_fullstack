@@ -1,7 +1,9 @@
 <?php
 # Appelle le ficher 'BDD.php'
 require_once 'BDD.php';
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 /*
 # PHPMailer
 // Import PHPMailer classes into the global namespace
@@ -80,7 +82,6 @@ class Manager{
       $_SESSION['prenom'] = $res['prenom'];
       $_SESSION['email'] = $res['email'];
       $_SESSION['rang'] = $res['rang'];
-      session_start();
       header("Location: ../vue/Accueil.php");
     }
 
