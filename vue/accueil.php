@@ -36,7 +36,7 @@ $res = $listetarif->listeTarif();?>
     <!-- Custom styles for this template -->
     <link href="../bootstrap/css/addition/carousel.css" rel="stylesheet">
   </head>
-  <body>
+  <body  style="padding-bottom:0px">
     <!-- Header -->
     <header>
       <!-- Navbar -->

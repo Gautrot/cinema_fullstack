@@ -36,7 +36,7 @@ $res = $listetarif->listeTarif();?>
     <!-- Custom styles for this template -->
     <link href="../bootstrap/css/addition/carousel.css" rel="stylesheet">
   </head>
-  <body>
+  <body style="padding-bottom:0px">
     <!-- Header -->
     <header>
       <!-- Navbar -->
@@ -144,12 +144,12 @@ $res = $listetarif->listeTarif();?>
         </div>
       </div>
       <!-- Fin Container -->
-      <!-- Footer -->
-      <?php include '../include/footer.php'; ?>
-      <!-- Fin Footer -->
     </main>
     <!-- Fin Contenu -->
     <!-- JS -->
     <?php include '../include/javascript.php'; ?>
   </body>
+  <!-- Footer -->
+  <?php include '../include/footer.php'; ?>
+  <!-- Fin Footer -->
 </html>
