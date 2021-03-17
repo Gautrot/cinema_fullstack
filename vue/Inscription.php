@@ -1,74 +1,58 @@
 <?php
-require_once '../model/Utilisateur.php';
 require_once '../manager/Manager.php';
 ?>
-
-<!doctype html>
 <html lang="en">
-  <head>
-    <?php include '../include/head.php'; ?>
-    <title>Inscription</title>
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+  <!-- Header -->
+  <?php include('../include/head.php'); ?>
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-    <!-- Custom styles for this template -->
-    <link href="bootstrap/css/addition/signin.css" rel="stylesheet">
-  </head>
-  <body class="text-center bg-dark">
+  <title>Inscription</title>
+  <!-- Fin Header -->
+  <body class="bg-dark">
     <div class="container">
-      <?php
-      if (isset($_SESSION['erreur'])) {
-        echo '<div class="col-xl-12 col-lg-10 col-md-8 card card-body o-hidden border-0 shadow-lg my-5 text-center alert alert-danger" role="alert">
-                '.$_SESSION['erreur'].'
-              </div>';
-      }
-      ?>
-      <div class="mx-auto col-xl-6 col-lg-6 col-md-6 card card-body o-hidden border-0 shadow-lg my-5 text-center">
-        <form method="post" action="../traitement/Inscription.php">
-          <h1 class="h3 m-3 fw-normal">S'inscrire</h1>
-          <div class="row p-1">
-            <div class="col-sm-6">
-              <input type="text" name="nom" class="form-control" placeholder="Nom" required>
-            </div>
-            <div class="col-sm-6">
-              <input type="text" name="prenom" class="form-control" placeholder="Prénom" required>
+      <div class="row justify-content-center">
+        <div class="col-6 card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-5 text-center text-gray-900">
+            <h4>Inscrivez-vous !</h4>
+            <hr>
+            <form class="user" action="../traitement/Inscription.php" method="post">
+              <div class="form-group row">
+                <div class="col-6 mb-2">
+                  <input class="form-control form-control-user" type="text" name="nom" placeholder="Nom" required>
+                </div>
+                <div class="col-6">
+                  <input class="form-control form-control-user" type="text" name="prenom" placeholder="Prénom" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-6 mb-2">
+                  <input class="form-control form-control-user" type="email" name="email" placeholder="E-mail" required>
+                </div>
+                <div class="col-6">
+                  <input class="form-control form-control-user" type="email" name="emailconfirm" placeholder="Confirmer" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-6 mb-5">
+                  <input class="form-control form-control-user" type="password" name="mdp" placeholder="Mot de passe" required>
+                </div>
+                <div class="col-6">
+                  <input class="form-control form-control-user" type="password" name="mdpconfirm" placeholder="Confirmer" required>
+                </div>
+              </div>
+              <div class="justify-content-center">
+                <input class="btn btn-primary" type="submit" value="S'inscrire" />
+              </div>
+            </form>
+            <div class="text-danger form-text text-center">
+<!-- PHP : Message d'erreur de modification -->
+              <?php if (isset($_SESSION['erreur'])) { echo $_SESSION['erreur']; }?>
             </div>
           </div>
-          <div class="row p-1">
-            <div class="col-sm-6">
-              <input type="email" name="email" class="form-control" placeholder="E-mail" required>
-            </div>
-            <div class="col-sm-6">
-              <input type="email" name="emailconfirm" class="form-control" placeholder="Confirmer" required>
-            </div>
-          </div>
-          <div class="row p-1">
-            <div class="col-sm-6">
-              <input type="password" name="mdp" class="form-control" placeholder="Mot de passe" required>
-            </div>
-            <div class="col-sm-6">
-              <input type="password" name="mdpconfirm" class="form-control" placeholder="Confirmer" required>
-            </div>
-          </div>
-          <button class="m-3 w-50 btn btn-primary" type="submit">S'inscrire</button>
-        </form>
+        </div>
       </div>
-      <p class="mb-3 text-muted">&copy; 2021 - Projet</p>
     </div>
+    <!-- JS -->
+    <?php include('../include/javascript.php'); ?>
+    <!-- Fin JS -->
   </body>
 </html>

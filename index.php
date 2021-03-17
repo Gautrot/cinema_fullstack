@@ -46,7 +46,7 @@ require_once 'manager/Manager.php';
       <div class="mx-auto col-xl-6 col-lg-6 col-md-6 card card-body o-hidden border-0 shadow-lg my-5 text-center">
         <form method="post" action="traitement/Connexion.php">
           <h1 class="h3 m-3 fw-normal">Se connecter</h1>
-          <div class="mx-auto col-sm-6 m-1">
+          <div class="mx-auto col-sm-6 m-2">
             <input type="email" name="email" class="form-control" placeholder="E-mail" required autofocus>
           </div>
           <div class="mx-auto col-sm-6 m-1">
@@ -58,13 +58,13 @@ require_once 'manager/Manager.php';
             </label>
           </div>
           <button class="w-50 btn btn-primary" type="submit">Se connecter</button>
-          <div class="text-center mt-2">
-            <a class="small" href="vue/Oublie.php">Mot de passe oublié ?</a>
-          </div>
-          <div class="text-center mt-0 mb-2">
-            <a class="small" href="vue/Inscription.php">Vous êtes nouveau ? Inscrivez-vous !</a>
-          </div>
         </form>
+        <div class="text-center mt-2">
+          <a class="small" href="vue/Oublie.php">Mot de passe oublié ?</a>
+        </div>
+        <div class="text-center mt-0 mb-2">
+          <a class="small" href="vue/Inscription.php">Vous êtes nouveau ? Inscrivez-vous !</a>
+        </div>
       </div>
       <p class="mb-3 text-muted">&copy; 2021 - Projet</p>
     </div>

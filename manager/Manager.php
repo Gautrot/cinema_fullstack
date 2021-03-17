@@ -135,7 +135,7 @@ class Manager{
 
       if ($res2) {
         header("Location: ../index.php");
-        throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
+        //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
       }
 
 # Si un ou plusieurs champs sont vides.
