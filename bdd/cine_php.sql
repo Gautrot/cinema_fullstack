@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 10 mars 2021 à 09:07
+-- Généré le :  mer. 17 mars 2021 à 11:17
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `recap` (
   `idUtil` smallint(5) NOT NULL,
   `idSalle` smallint(5) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `idUtil` (`idUtil`),
+  UNIQUE KEY `idUtil` (`idUtil`),
   KEY `idSalle` (`idSalle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -110,7 +110,8 @@ INSERT INTO `tarif` (`idTarif`, `nomTarif`, `prixTarif`) VALUES
 
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
-  `idUtil` smallint(5) NOT NULL,
+  `idUtil` smallint(5) NOT NULL AUTO_INCREMENT,
+  `rang` varchar(5) COLLATE utf8_bin DEFAULT NULL,
   `nom` varchar(40) COLLATE utf8_bin DEFAULT NULL,
   `prenom` varchar(40) COLLATE utf8_bin DEFAULT NULL,
   `email` varchar(40) COLLATE utf8_bin DEFAULT NULL,
@@ -118,7 +119,15 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `idTarif` smallint(5) NOT NULL,
   PRIMARY KEY (`idUtil`),
   KEY `idTarif` (`idTarif`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`idUtil`, `rang`, `nom`, `prenom`, `email`, `mdp`, `idTarif`) VALUES
+(1, 'ADMIN', 'A', 'A', 'a@gmail.com', 'a', 1),
+(2, 'USER', 'B', 'B', 'b@gmail.com', 'b', 1);
 
 --
 -- Contraintes pour les tables déchargées
