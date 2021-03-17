@@ -10,8 +10,8 @@ try {
   ]);
   #Instancie la classe Manager
   $manager = new Manager();
-  #Lance la méthode connection
-  $manager->connection($user);
+  #Lance la méthode connexion
+  $manager->connexion($user);
 }
 
 #Affiche un message d'erreur

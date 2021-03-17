@@ -44,7 +44,7 @@ require_once 'manager/Manager.php';
       }
       ?>
       <div class="mx-auto col-xl-6 col-lg-6 col-md-6 card card-body o-hidden border-0 shadow-lg my-5 text-center">
-        <form method="post" action="traitement/Connection.php">
+        <form method="post" action="traitement/Connexion.php">
           <h1 class="h3 m-3 fw-normal">Se connecter</h1>
           <div class="mx-auto col-sm-6 m-1">
             <input type="email" name="email" class="form-control" placeholder="E-mail" required autofocus>
