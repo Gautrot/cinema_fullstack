@@ -40,7 +40,7 @@ require_once '../manager/Manager.php';
                 </div>
               </div>
               <div class="justify-content-center">
-                <input class="btn btn-primary" type="submit" value="S'inscrire" />
+                <input class="btn btn-primary w-50" type="submit" value="S'inscrire" />
               </div>
             </form>
             <div class="text-danger form-text text-center">
