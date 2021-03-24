@@ -1,14 +1,13 @@
 <?php
-require_once '../model/Tarif.php';
+require_once '../model/Film.php';
 require_once '../manager/Manager.php';
 
-#Instancie la classe Manager
-$listetarif = new Manager();
-#Lance la méthode inscription
-$res = $listetarif->listeTarif();?>
+setlocale(LC_ALL, 'fr_FR');
+$date = $_SESSION['dateSortie'];
+?>
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <?php include '../include/head.php'; ?>
     <title>Film 1</title>
@@ -53,9 +52,11 @@ $res = $listetarif->listeTarif();?>
           <!-- START THE FEATURETTES -->
           <div class="row">
             <div class="col-md-7 bg-secondary">
-              <h2 class="featurette-heading text-dark">Film 1 <span class="text-warning fs-6">Sortie le JJ/MM/AAAA</span></h2>
-              <p class="lead text-warning">Contenu du film 1.</p>
-              <button class="btn btn-primary" type="submit">Réserver</button>
+              <h2 class="featurette-heading text-dark"><?php echo $_SESSION['nomFilm']; ?><span class="text-warning fs-6"> Sortie le <?php echo strftime("%d %B %Y"); ?></span></h2>
+              <p class="lead text-warning"><?php echo $_SESSION['resumeFilm']; ?></p>
+              <form action="../vue/Reserve.php" method="post">
+                <button class="btn btn-primary" type="submit">Réserver</button>
+              </form>
             </div>
             <div class="col-5">
               <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
@@ -78,11 +79,17 @@ $res = $listetarif->listeTarif();?>
                   </svg>
                   <p class="fs-6 text-dark">4.0</p>
                 </div>
-                <div class="d-inline-block">
+                <div class="me-5 d-inline-block">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="primary" class="bi bi-chat-quote-fill" viewBox="0 0 16 16">
                     <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM7.194 6.766a1.688 1.688 0 0 0-.227-.272 1.467 1.467 0 0 0-.469-.324l-.008-.004A1.785 1.785 0 0 0 5.734 6C4.776 6 4 6.746 4 7.667c0 .92.776 1.666 1.734 1.666.343 0 .662-.095.931-.26-.137.389-.39.804-.81 1.22a.405.405 0 0 0 .011.59c.173.16.447.155.614-.01 1.334-1.329 1.37-2.758.941-3.706a2.461 2.461 0 0 0-.227-.4zM11 9.073c-.136.389-.39.804-.81 1.22a.405.405 0 0 0 .012.59c.172.16.446.155.613-.01 1.334-1.329 1.37-2.758.942-3.706a2.466 2.466 0 0 0-.228-.4 1.686 1.686 0 0 0-.227-.273 1.466 1.466 0 0 0-.469-.324l-.008-.004A1.785 1.785 0 0 0 10.07 6c-.957 0-1.734.746-1.734 1.667 0 .92.777 1.666 1.734 1.666.343 0 .662-.095.931-.26z"/>
                   </svg>
                   <div><a class="fs-6 text-dark" href="#Commentaires">1</a></div>
+                </div>
+                <div class="d-inline-block">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="primary" class="bi bi-door-open-fill" viewBox="0 0 16 16">
+                    <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+                  </svg>
+                  <p class="fs-6 text-dark"><?php echo $_SESSION['numSalle']; ?></p>
                 </div>
               </div>
             </div>

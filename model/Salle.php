@@ -1,5 +1,5 @@
 <?php
-class Utilisateur{
+class Salle{
   private $idSalle, $numSalle, $numPlace, $idFilm;
 
   public function __construct($donnees){
@@ -27,21 +27,25 @@ class Utilisateur{
 # Setters
 
   public function setIdSalle($idSalle) {
-    $this->idSalle = $idSalle;
+    if (is_int($idSalle)) {
+      $this->idSalle = $idSalle;
+    }
   }
 
   public function setIdFilm($idFilm) {
-    $this->idFilm = $idFilm;
+    if (is_int($idFilm)) {
+      $this->idFilm = $idFilm;
+    }
   }
 
   public function setNumSalle($numSalle) {
-    if (is_string($numSalle)) {
+    if (is_int($numSalle)) {
       $this->numSalle = $numSalle;
     }
   }
 
   public function setNumPlace($numPlace) {
-    if (is_string($numPlace)) {
+    if (is_int($numPlace)) {
       $this->numPlace = $numPlace;
     }
   }

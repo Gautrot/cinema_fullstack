@@ -63,7 +63,7 @@ class Manager{
 
 # Connexion
 
-  public function connexion($user) {
+  public function connexion(Utilisateur $user) {
 # Instancie la classe BDD
     $bdd = new BDD();
     $req = $bdd->co_bdd()->prepare('SELECT * FROM utilisateur
@@ -95,14 +95,14 @@ class Manager{
 
 # Déconnexion
 
-  public function deconnexion($user) {
+  public function deconnexion(Utilisateur $user) {
     session_destroy();
     header("Location: ../index.php");
   }
 
 # Inscription
 
-  public function inscription($user) {
+  public function inscription(Utilisateur $user) {
     #Instancie la classe BDD
     $bdd = new BDD();
     $req = $bdd -> co_bdd()->prepare('SELECT email FROM utilisateur
@@ -149,7 +149,7 @@ class Manager{
 
 # Modification d'un compte
 
-  public function modifier($user) {
+  public function modifier(Utilisateur $user) {
     #Instancie la classe BDD
     $bdd = new BDD();
     $req = $bdd -> co_bdd()->prepare('SELECT * FROM utilisateur
@@ -196,7 +196,7 @@ class Manager{
 
 # Mot de passe oublié
 
-  public function oublie($user) {
+  public function oublie(Utilisateur $user) {
 
   }
 
@@ -213,13 +213,58 @@ class Manager{
 
 # Liste les films de la BDD
 
-  public function listeFilm(){
+  public function listeFilm(Film $film){
     #Instancie la classe BDD
     $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT * FROM film');
-    $req -> execute([]);
-    $listefilm = $req->fetchall();
-    return $listefilm;
+    $req = $bdd -> co_bdd()->prepare('SELECT * FROM film WHERE nomFilm = :nomFilm');
+    $req -> execute([
+      'nomFilm' => $film->getNomFilm()
+    ]);
+    $res = $req->fetch();
+
+    if ($res) {
+      $_SESSION['idFilm'] = $res['idFilm'];
+      $_SESSION['nomFilm'] = str_replace('_', ' ', $res['nomFilm']);
+      $_SESSION['dateSortie'] = $res['dateSortie'];
+      $_SESSION['resumeFilm'] = $res['resumeFilm'];
+
+      $req2 = $bdd -> co_bdd()->prepare('SELECT numSalle FROM salle INNER JOIN film ON film.idFilm = salle.idFilm WHERE salle.idFilm = :idFilm');
+      $req2 -> execute([
+        'idFilm' => $film->getIdFilm()
+      ]);
+      $listefilm = $req2->fetchall();
+
+      var_dump($req);
+      var_dump($res);
+      var_dump($req2);
+      var_dump($listefilm);
+      //die();
+
+      $_SESSION['numSalle'] = $listefilm['numSalle'];
+      header("Location: ../vue/".str_replace(' ', '_', $listefilm['nomFilm']).".php");
+    }
+  }
+
+# Liste les salles de la BDD
+
+  public function listeSalle(Salle $salle){
+    #Instancie la classe BDD
+    $bdd = new BDD();
+    $req = $bdd -> co_bdd()->prepare('SELECT * FROM salle WHERE idFilm = :idFilm');
+    $req -> execute([
+      'numSalle' => $film->getNumSalle()
+    ]);
+    $listesalle = $req->fetch();
+
+    if ($listesalle) {
+      $_SESSION['idSalle'] = $listesalle['idSalle'];
+      $_SESSION['numSalle'] = $listesalle['numSalle'];
+      $_SESSION['numPlace'] = $listesalle['numPlace'];
+      $_SESSION['idFilm'] = $listesalle['idFilm'];
+
+      //var_dump();
+      //die();
+    }
   }
 
 # Liste les utilisateurs de la BDD
@@ -258,7 +303,7 @@ Partie Administration
 
 # Ajout d'un utilisateur
 
-  public function inscrAdmin($user) {
+  public function inscrAdmin(Utilisateur $user) {
     #Instancie la classe BDD
     $bdd = new BDD();
     $req = $bdd -> co_bdd()->prepare('SELECT email FROM user

@@ -1,5 +1,5 @@
 <?php
-class Utilisateur{
+class Recap{
   private $id, $idUtil, $idSalle;
 
   public function __construct($donnees){

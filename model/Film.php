@@ -1,6 +1,6 @@
 <?php
-class Utilisateur{
-  private $idFilm, $nomFilm, $resumeFilm;
+class Film{
+  private $idFilm, $nomFilm, $dateSortie, $resumeFilm;
 
   public function __construct($donnees){
     $this->hydrate($donnees);
@@ -16,6 +16,10 @@ class Utilisateur{
     return $this->nomFilm;
   }
 
+  public function getDateSortie() {
+    return $this->dateSortie;
+  }
+
   public function getResumeFilm() {
     return $this->resumeFilm;
   }
@@ -24,6 +28,12 @@ class Utilisateur{
 
   public function setIdFilm($idFilm) {
     $this->idFilm = $idFilm;
+  }
+
+  public function setDateSortie($dateSortie) {
+    if (is_string($dateSortie)) {
+      $this->dateSortie = $dateSortie;
+    }
   }
 
   public function setNomFilm($nomFilm) {
