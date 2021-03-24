@@ -72,9 +72,9 @@ class Manager{
     ');
     $req -> execute([
       'email' => $user->getEmail(),
-      'mdp' => $user->getMdp()
+      'mdp' => password_hash($user->getMdp(), PASSWORD_DEFAULT)
     ]);
-    $res = $req -> fetch();
+    $res = $req->fetch();
     password_verify($user->getMdp(), $res['mdp']);
     var_dump($user->getMdp());
     var_dump($res);
