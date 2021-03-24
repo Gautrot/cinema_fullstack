@@ -75,7 +75,12 @@ class Manager{
       'mdp' => $user->getMdp()
     ]);
     $res = $req -> fetch();
-
+    password_verify($user->getMdp(), $res['mdp']);
+    var_dump($user->getMdp());
+    var_dump($res);
+    var_dump($res['mdp']);
+    var_dump(password_verify($user->getMdp(), $res['mdp']));
+    die();
     if ($res) {
       $_SESSION['idUtil'] = $res['idUtil'];
       $_SESSION['nom'] = $res['nom'];
@@ -131,7 +136,11 @@ class Manager{
         'prenom' => $user->getPrenom(),
         'rang' => $user->getRang(),
         'idTarif' => $user->getIdTarif()
-       ]);
+      ]);
+
+      var_dump($_SESSION);
+      var_dump($user);
+      die();
 
       if ($res2) {
         header("Location: ../index.php");
@@ -213,10 +222,12 @@ class Manager{
 
 # Liste les films de la BDD
 
-  public function listeFilm(Film $film){
+  public function selectFilm(Film $film){
     #Instancie la classe BDD
     $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT * FROM film WHERE nomFilm = :nomFilm');
+    $req = $bdd -> co_bdd()->prepare('SELECT * FROM film
+      WHERE nomFilm = :nomFilm
+    ');
     $req -> execute([
       'nomFilm' => $film->getNomFilm()
     ]);
@@ -228,44 +239,31 @@ class Manager{
       $_SESSION['dateSortie'] = $res['dateSortie'];
       $_SESSION['resumeFilm'] = $res['resumeFilm'];
 
-      $req2 = $bdd -> co_bdd()->prepare('SELECT numSalle FROM salle INNER JOIN film ON film.idFilm = salle.idFilm WHERE salle.idFilm = :idFilm');
-      $req2 -> execute([
+      $req = $bdd -> co_bdd()->prepare('SELECT numSalle FROM salle
+        INNER JOIN film
+        ON film.idFilm = salle.idFilm
+        WHERE film.idFilm = :idFilm
+      ');
+      $req -> execute([
         'idFilm' => $film->getIdFilm()
       ]);
-      $listefilm = $req2->fetchall();
+      $res2 = $req->fetchall();
 
-      var_dump($req);
       var_dump($res);
-      var_dump($req2);
-      var_dump($listefilm);
-      //die();
+      var_dump($res2);
 
-      $_SESSION['numSalle'] = $listefilm['numSalle'];
-      header("Location: ../vue/".str_replace(' ', '_', $listefilm['nomFilm']).".php");
+      if ($res2) {
+        $_SESSION['numSalle'] = $res2['numSalle'];
+        die();
+
+        header("Location: ../vue/".str_replace(' ', '_', $res['nomFilm']).".php");
+      }
     }
   }
 
 # Liste les salles de la BDD
 
-  public function listeSalle(Salle $salle){
-    #Instancie la classe BDD
-    $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT * FROM salle WHERE idFilm = :idFilm');
-    $req -> execute([
-      'numSalle' => $film->getNumSalle()
-    ]);
-    $listesalle = $req->fetch();
 
-    if ($listesalle) {
-      $_SESSION['idSalle'] = $listesalle['idSalle'];
-      $_SESSION['numSalle'] = $listesalle['numSalle'];
-      $_SESSION['numPlace'] = $listesalle['numPlace'];
-      $_SESSION['idFilm'] = $listesalle['idFilm'];
-
-      //var_dump();
-      //die();
-    }
-  }
 
 # Liste les utilisateurs de la BDD
 

@@ -1,7 +1,9 @@
 <?php
 require_once 'model/Utilisateur.php';
 require_once 'manager/Manager.php';
-?>
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}?>
 
 <!doctype html>
 <html lang="en">

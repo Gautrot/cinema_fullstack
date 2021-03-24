@@ -1,16 +1,19 @@
 <?php
 require_once '../model/Film.php';
+require_once '../model/Salle.php';
 require_once '../manager/Manager.php';
 
 try {
-  #Instancie la classe Utilisateur
+  #Instancie la classe Manager
+  $manager = new Manager();
+
+  #Instancie la classe Film
   $film = new Film([
     'nomFilm' => $_POST['nomFilm']
   ]);
-  #Instancie la classe Manager
-  $manager = new Manager();
-  #Lance la méthode connexion
-  $manager->listeFilm($film);
+
+  #Lance la méthode selectFilm
+  $manager->selectFilm($film);
 }
 
 #Affiche un message d'erreur

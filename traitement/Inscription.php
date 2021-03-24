@@ -6,10 +6,11 @@ require_once '../manager/Manager.php';
 if ($_POST['mdp'] === $_POST['mdpconfirm'] && $_POST['email'] === $_POST['emailconfirm']) {
   try {
     #Instancie la classe Utilisateur
+    $mdp = $_POST['mdp'];
     $user = new Utilisateur([
       'nom' => $_POST['nom'],
       'prenom' => $_POST['prenom'],
-      'mdp' => $_POST['mdp'],
+      'mdp' => password_hash($mdp, PASSWORD_DEFAULT),
       'email' => $_POST['email'],
       'rang' => 'USER',
       'idTarif' => '1'
