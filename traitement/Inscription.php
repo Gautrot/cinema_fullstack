@@ -10,7 +10,7 @@ if ($_POST['mdp'] === $_POST['mdpconfirm'] && $_POST['email'] === $_POST['emailc
     $user = new Utilisateur([
       'nom' => $_POST['nom'],
       'prenom' => $_POST['prenom'],
-      'mdp' => password_hash($mdp, PASSWORD_DEFAULT),
+      'mdp' => $_POST['mdp'],
       'email' => $_POST['email'],
       'rang' => 'USER',
       'idTarif' => '1'

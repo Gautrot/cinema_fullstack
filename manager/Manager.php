@@ -2,7 +2,7 @@
 # Appelle le ficher 'BDD.php'
 require_once 'BDD.php';
 if (session_status() == PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 /*
 # PHPMailer
@@ -66,21 +66,23 @@ class Manager{
   public function connexion(Utilisateur $user) {
 # Instancie la classe BDD
     $bdd = new BDD();
+
     $req = $bdd->co_bdd()->prepare('SELECT * FROM utilisateur
       WHERE email = :email
       AND mdp = :mdp
     ');
     $req -> execute([
       'email' => $user->getEmail(),
-      'mdp' => password_hash($user->getMdp(), PASSWORD_DEFAULT)
+      'mdp' => $user->getMdp()
     ]);
     $res = $req->fetch();
-    password_verify($user->getMdp(), $res['mdp']);
-    var_dump($user->getMdp());
+    /*
+    var_dump($user);
+    var_dump('mdp => ' .$user->getMdp());
+    var_dump('password_verify('.$_POST['mdp'].',' .$user->getMdp().')');
     var_dump($res);
-    var_dump($res['mdp']);
-    var_dump(password_verify($user->getMdp(), $res['mdp']));
     die();
+    */
     if ($res) {
       $_SESSION['idUtil'] = $res['idUtil'];
       $_SESSION['nom'] = $res['nom'];
@@ -126,10 +128,14 @@ class Manager{
     }
 
     else {
-      $req = $bdd -> co_bdd()->prepare('INSERT INTO utilisateur (email, mdp, nom, prenom, rang, idTarif)
-      VALUES (:email, :mdp, :nom, :prenom, :rang, :idTarif)
+      $pass = $_POST['mdp'];
+      $hash = password_hash($pass, PASSWORD_DEFAULT);
+
+      $req = $bdd->co_bdd()->prepare('INSERT INTO utilisateur (email, mdp, nom, prenom, rang, idTarif)
+        VALUES (:email, :mdp, :nom, :prenom, :rang, :idTarif)
       ');
-      $res2 = $req -> execute([
+      $req->bindParam(':mdp', $hash, PDO::PARAM_STR);
+      $res2 = $req->execute([
         'email' => $user->getEmail(),
         'mdp' => $user->getMdp(),
         'nom' => $user->getNom(),
@@ -137,11 +143,15 @@ class Manager{
         'rang' => $user->getRang(),
         'idTarif' => $user->getIdTarif()
       ]);
-
+      /*
+      var_dump($pass);
+      var_dump($hash);
       var_dump($_SESSION);
       var_dump($user);
+      var_dump($res);
+      var_dump($res2);
       die();
-
+      */
       if ($res2) {
         header("Location: ../index.php");
         //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
