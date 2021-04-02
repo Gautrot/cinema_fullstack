@@ -2,19 +2,24 @@
 require_once '../model/Film.php';
 require_once '../model/Salle.php';
 require_once '../manager/Manager.php';
-/*
+
+#Instancie la classe Utilisateur
+$salle = new Salle([
+  'numSalle' => $_POST['numSalle']
+]);
 #Instancie la classe Manager
-$listesalle = new Manager();
-#Lance la méthode inscription
-$res = $listesalle->listeSalle();
-*/
+$manager = new Manager();
+#Lance la méthode selectSalle
+$manager->selectSalle($salle);
+}
+
 ?>
 
 <!doctype html>
 <html lang="fr">
   <head>
     <?php include '../include/head.php'; ?>
-    <title>Film 1</title>
+    <title>Réservation</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
 
     <!-- Bootstrap core CSS -->
@@ -53,7 +58,7 @@ $res = $listesalle->listeSalle();
       </div>
       <div class="bg-dark p-5">
         <div class="container">
-          <h1>Réserver <?php echo $_SESSION['nomFilm']; ?></h1>
+          <h1>Réserver une place pour <?php echo $_SESSION['nomFilm']; ?></h1>
           <div class="mx-auto col-6 card card-body shadow-lg my-5 text-center">
             <form action="../traitement/SelectSalle.php" method="post">
               <div class="mx-auto col-6 m-2">

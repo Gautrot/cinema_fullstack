@@ -1,5 +1,6 @@
 <?php
 require_once '../model/Film.php';
+require_once '../model/Salle.php';
 require_once '../manager/Manager.php';
 
 setlocale(LC_ALL, 'fr_FR');
