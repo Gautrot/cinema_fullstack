@@ -1,7 +1,9 @@
 <?php
 require_once 'model/Utilisateur.php';
 require_once 'manager/Manager.php';
-?>
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}?>
 
 <!doctype html>
 <html lang="en">
@@ -9,23 +11,6 @@ require_once 'manager/Manager.php';
     <?php include 'include/head.php'; ?>
     <title>Connexion</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
     <!-- Custom styles for this template -->
     <link href="bootstrap/css/addition/signin.css" rel="stylesheet">
   </head>
@@ -33,23 +18,26 @@ require_once 'manager/Manager.php';
     <div class="container">
       <?php
       if (isset($_SESSION['erreur'])) {
-        echo '<div class="col-xl-12 col-lg-10 col-md-8 card card-body o-hidden border-0 shadow-lg my-5 text-center alert alert-danger" role="alert">
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 '.$_SESSION['erreur'].'
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>';
       }
       if (isset($_SESSION['succes'])) {
-        echo '<div class="col-xl-12 col-lg-10 col-md-8 card card-body o-hidden border-0 shadow-lg my-5 text-center alert alert-success" role="alert">
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                 '.$_SESSION['succes'].'
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>';
       }
       ?>
-      <div class="mx-auto col-xl-6 col-lg-6 col-md-6 card card-body o-hidden border-0 shadow-lg my-5 text-center">
+      <div class="mx-auto col-6 card card-body shadow-lg my-5 text-center">
         <form method="post" action="traitement/Connexion.php">
           <h1 class="h3 m-3 fw-normal">Se connecter</h1>
-          <div class="mx-auto col-sm-6 m-1">
+          <hr>
+          <div class="mx-auto col-6 m-2">
             <input type="email" name="email" class="form-control" placeholder="E-mail" required autofocus>
           </div>
-          <div class="mx-auto col-sm-6 m-1">
+          <div class="mx-auto col-6 m-1">
             <input type="password" name="mdp" class="form-control" placeholder="Mot de passe" required>
           </div>
           <div class="checkbox m-3">
@@ -58,15 +46,21 @@ require_once 'manager/Manager.php';
             </label>
           </div>
           <button class="w-50 btn btn-primary" type="submit">Se connecter</button>
-          <div class="text-center mt-2">
-            <a class="small" href="vue/Oublie.php">Mot de passe oublié ?</a>
-          </div>
-          <div class="text-center mt-0 mb-2">
-            <a class="small" href="vue/Inscription.php">Vous êtes nouveau ? Inscrivez-vous !</a>
-          </div>
         </form>
+        <div class="text-center mt-2 fs-6">
+          <a class="small" href="vue/Oublie.php">Mot de passe oublié ?</a>
+        </div>
+        <div class="text-center mt-0 mb-2 fs-6">
+          <a class="small" href="vue/Inscription.php">Vous êtes nouveau ? Inscrivez-vous !</a>
+        </div>
       </div>
       <p class="mb-3 text-muted">&copy; 2021 - Projet</p>
     </div>
   </body>
+  <script>
+    var alertList = document.querySelectorAll('.alert')
+    alertList.forEach(function (alert) {
+    new bootstrap.Alert(alert)
+    })
+  </script>
 </html>

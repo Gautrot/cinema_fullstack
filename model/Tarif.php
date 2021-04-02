@@ -1,5 +1,5 @@
 <?php
-class Utilisateur{
+class Tarif{
   private $idTarif, $nomTarif, $prixTarif;
 
   public function __construct($donnees){
