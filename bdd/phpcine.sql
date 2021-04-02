@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 17 mars 2021 à 11:17
--- Version du serveur :  5.7.26
--- Version de PHP :  7.2.18
+-- Host: 127.0.0.1:3306
+-- Generation Time: Apr 02, 2021 at 09:53 AM
+-- Server version: 5.7.31
+-- PHP Version: 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `cine_php`
+-- Database: `phpcine`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `film`
+-- Table structure for table `film`
 --
 
 DROP TABLE IF EXISTS `film`;
@@ -36,10 +35,18 @@ CREATE TABLE IF NOT EXISTS `film` (
   PRIMARY KEY (`idFilm`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Dumping data for table `film`
+--
+
+INSERT INTO `film` (`idFilm`, `nomFilm`, `resumeFilm`) VALUES
+(1, 'Film 1', 'Résumé du Film 1.'),
+(2, 'Film 2', 'Résumé du Film 2.');
+
 -- --------------------------------------------------------
 
 --
--- Structure de la table `recap`
+-- Table structure for table `recap`
 --
 
 DROP TABLE IF EXISTS `recap`;
@@ -55,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `recap` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `salle`
+-- Table structure for table `salle`
 --
 
 DROP TABLE IF EXISTS `salle`;
@@ -69,19 +76,19 @@ CREATE TABLE IF NOT EXISTS `salle` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Déchargement des données de la table `salle`
+-- Dumping data for table `salle`
 --
 
 INSERT INTO `salle` (`idSalle`, `numSalle`, `numPlace`, `idFilm`) VALUES
-(1, 1, 100, 0),
-(2, 11, 100, 0),
-(3, 14, 100, 0),
-(4, 7, 100, 0);
+(1, 1, 100, 1),
+(2, 11, 100, 1),
+(3, 14, 100, 2),
+(4, 7, 100, 3);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `tarif`
+-- Table structure for table `tarif`
 --
 
 DROP TABLE IF EXISTS `tarif`;
@@ -93,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `tarif` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Déchargement des données de la table `tarif`
+-- Dumping data for table `tarif`
 --
 
 INSERT INTO `tarif` (`idTarif`, `nomTarif`, `prixTarif`) VALUES
@@ -105,7 +112,7 @@ INSERT INTO `tarif` (`idTarif`, `nomTarif`, `prixTarif`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `utilisateur`
+-- Table structure for table `utilisateur`
 --
 
 DROP TABLE IF EXISTS `utilisateur`;
@@ -115,39 +122,38 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `nom` varchar(40) COLLATE utf8_bin DEFAULT NULL,
   `prenom` varchar(40) COLLATE utf8_bin DEFAULT NULL,
   `email` varchar(40) COLLATE utf8_bin DEFAULT NULL,
-  `mdp` varchar(40) COLLATE utf8_bin DEFAULT NULL,
+  `mdp` text COLLATE utf8_bin,
   `idTarif` smallint(5) NOT NULL,
   PRIMARY KEY (`idUtil`),
   KEY `idTarif` (`idTarif`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Déchargement des données de la table `utilisateur`
+-- Dumping data for table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`idUtil`, `rang`, `nom`, `prenom`, `email`, `mdp`, `idTarif`) VALUES
-(1, 'ADMIN', 'A', 'A', 'a@gmail.com', 'a', 1),
-(2, 'USER', 'B', 'B', 'b@gmail.com', 'b', 1);
+(1, 'USER', 'A', 'A', 'a@gmail.com', 'a', 1);
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `film`
+-- Constraints for table `film`
 --
 ALTER TABLE `film`
   ADD CONSTRAINT `film_ibfk_1` FOREIGN KEY (`idFilm`) REFERENCES `salle` (`idFilm`);
 
 --
--- Contraintes pour la table `recap`
+-- Constraints for table `recap`
 --
 ALTER TABLE `recap`
   ADD CONSTRAINT `recap_ibfk_1` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`idSalle`),
   ADD CONSTRAINT `recap_ibfk_2` FOREIGN KEY (`idUtil`) REFERENCES `utilisateur` (`idUtil`);
 
 --
--- Contraintes pour la table `utilisateur`
+-- Constraints for table `utilisateur`
 --
 ALTER TABLE `utilisateur`
   ADD CONSTRAINT `utilisateur_ibfk_1` FOREIGN KEY (`idTarif`) REFERENCES `tarif` (`idTarif`);
