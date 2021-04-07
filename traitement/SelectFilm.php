@@ -7,7 +7,6 @@ try {
   $film = new Film([
     'nomFilm' => $_POST['nomFilm']
   ]);
-
   #Instancie la classe Manager
   $manager = new Manager();
   #Lance la méthode selectFilm

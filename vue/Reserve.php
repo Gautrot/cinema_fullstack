@@ -3,16 +3,10 @@ require_once '../model/Film.php';
 require_once '../model/Salle.php';
 require_once '../manager/Manager.php';
 
-#Instancie la classe Utilisateur
-$salle = new Salle([
-  'numSalle' => $_POST['numSalle']
-]);
 #Instancie la classe Manager
-$manager = new Manager();
-#Lance la méthode selectSalle
-$manager->selectSalle($salle);
-}
-
+$numsalle = new Manager();
+#Lance la méthode listeSalle
+$res = $numsalle->listeSalle($_SESSION['nomFilm']);
 ?>
 
 <!doctype html>
@@ -58,20 +52,22 @@ $manager->selectSalle($salle);
       </div>
       <div class="bg-dark p-5">
         <div class="container">
-          <h1>Réserver une place pour <?php echo $_SESSION['nomFilm']; ?></h1>
+          <h1>Réserver une place pour <?php echo str_replace('_', ' ', $_SESSION['nomFilm']); ?></h1>
           <div class="mx-auto col-6 card card-body shadow-lg my-5 text-center">
             <form action="../traitement/SelectSalle.php" method="post">
-              <div class="mx-auto col-6 m-2">
+              <div class="mx-auto col-10 m-2">
                 <select name="numSalle">
-                  <?php foreach ($res as $value) {
-                  echo '<option name="' .$value['numSalle']. '" value="' .$value['numSalle']. '"></option>';
+
+                  <?php
+                  foreach ($res as $value) {
+                    echo '<option name="' .$value['numSalle']. '" value="' .$value['numSalle']. '">'.$value['numSalle'].'</option>';
                   }
                   ?>
-                </select>
-              </div>
-              <button class="w-50 btn btn-primary" type="submit">Sélectionner la salle</button>
-            </form>
 
+                </select>
+                <button class="w-50 btn-sm btn-primary" type="submit">Sélectionner la salle</button>
+              </div>
+            </form>
             <?php if(isset($_SESSION['numSalle'])) { echo '
             <form method="post" action="../traitement/Reserve.php">
               <div class="mx-auto col-6 m-2">

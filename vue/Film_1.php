@@ -5,13 +5,19 @@ require_once '../manager/Manager.php';
 
 setlocale(LC_ALL, 'fr_FR');
 $date = $_SESSION['dateSortie'];
+
+#Instancie la classe Manager
+$numsalle = new Manager();
+#Lance la méthode listeSalle
+$res = $numsalle->listeSalle($_SESSION['nomFilm']);
+
 ?>
 
 <!doctype html>
 <html lang="fr">
   <head>
     <?php include '../include/head.php'; ?>
-    <title>Film 1</title>
+    <title><?php echo str_replace('_', ' ', $_SESSION['nomFilm']); ?></title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
 
     <!-- Bootstrap core CSS -->
@@ -52,14 +58,14 @@ $date = $_SESSION['dateSortie'];
         <div class="container">
           <!-- START THE FEATURETTES -->
           <div class="row">
-            <div class="col-md-7 bg-secondary">
-              <h2 class="featurette-heading text-dark"><?php echo $_SESSION['nomFilm']; ?><span class="text-warning fs-6"> Sortie le <?php echo strftime("%d %B %Y"); ?></span></h2>
+            <div class="col-md-8 bg-secondary">
+              <h2 class="featurette-heading text-dark"><?php echo str_replace('_', ' ', $_SESSION['nomFilm']); ?><span class="text-warning fs-6"> Sortie le <?php echo strftime("%d %B %Y"); ?></span></h2>
               <p class="lead text-warning"><?php echo $_SESSION['resumeFilm']; ?></p>
-              <form action="../vue/Reserve.php" method="post">
+              <form action="Reserve.php" method="post">
                 <button class="btn btn-primary" type="submit">Réserver</button>
               </form>
             </div>
-            <div class="col-5">
+            <div class="col-4">
               <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
               <div class="mt-2 p-2 bg-primary">
                 <div class="me-5 d-inline-block">
@@ -90,7 +96,15 @@ $date = $_SESSION['dateSortie'];
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="primary" class="bi bi-door-open-fill" viewBox="0 0 16 16">
                     <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
                   </svg>
-                  <p class="fs-6 text-dark"><?php echo $_SESSION['numSalle']; ?></p>
+                  <p class="fs-6 text-dark">
+
+                    <?php
+                    foreach ($res as $value) {
+                      echo $value['numSalle'] .' ';
+                    }
+                    ?>
+
+                  </p>
                 </div>
               </div>
             </div>
