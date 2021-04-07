@@ -1,22 +1,22 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark ps-3 pe-3">
   <div class="container-fluid">
-    <div class="pe-5 text-light">Bonjour <?php echo $_SESSION['nom'];?> !</div>
+    <div class="pe-4 text-light">Bonjour <?php echo $_SESSION['nom'];?> !</div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        <li class="nav-item">
+        <li class="nav-item m-2">
           <form action="../traitement/Deconnexion.php" method="post">
             <button class="btn btn-danger" type="submit">Se déconnecter</button>
           </form>
         </li>
-        <li class="nav-item">
+        <li class="nav-item m-2">
           <form action="../vue/Modifier.php" method="post">
             <button class="btn btn-primary" type="submit">Modifier</button>
           </form>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown m-2">
           <button class="nav-link dropdown-toggle btn btn-primary" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Réservation
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-bag-fill" viewBox="0 0 16 16">

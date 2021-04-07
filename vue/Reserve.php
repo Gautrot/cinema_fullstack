@@ -95,6 +95,19 @@ $res2 = $listetarif->listeTarif();
                   <input class="w-100" type="text" name="numPlace"/>
                 </div>
               </div>
+              <div class="form-group row">
+                <div class="col-8 mt-1">
+                  <p class="text-start">Choix 3D</p>
+                </div>
+                <div class="col-2">
+                  <input type="radio" name="3D" value="1">
+                  <label for="1">Oui</label>
+                </div>
+                <div class="col-2">
+                  <input type="radio" name="3D" value="0">
+                  <label for="0">Non</label>
+                </div>
+              </div>
               <div class="justify-content-center">
                 <input class="btn btn-primary" type="submit" value="Réserver" />
               </div>
