@@ -2,19 +2,22 @@
 require_once '../model/Film.php';
 require_once '../model/Salle.php';
 require_once '../manager/Manager.php';
-/*
+
 #Instancie la classe Manager
-$listesalle = new Manager();
-#Lance la méthode inscription
-$res = $listesalle->listeSalle();
-*/
+$numsalle = new Manager();
+#Lance la méthode listeSalle
+$res = $numsalle->listeSalle($_SESSION['nomFilm']);
+#Instancie la classe Manager
+$listetarif = new Manager();
+#Lance la méthode listeTarif
+$res2 = $listetarif->listeTarif();
 ?>
 
 <!doctype html>
 <html lang="fr">
   <head>
     <?php include '../include/head.php'; ?>
-    <title>Film 1</title>
+    <title>Réservation</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
 
     <!-- Bootstrap core CSS -->
@@ -53,31 +56,62 @@ $res = $listesalle->listeSalle();
       </div>
       <div class="bg-dark p-5">
         <div class="container">
-          <h1>Réserver <?php echo $_SESSION['nomFilm']; ?></h1>
-          <div class="mx-auto col-6 card card-body shadow-lg my-5 text-center">
+          <h1>Réserver une place pour <?php echo str_replace('_', ' ', $_SESSION['nomFilm']); ?></h1>
+          <div class="row mx-auto col-6 card card-body shadow-lg my-5 text-center">
             <form action="../traitement/SelectSalle.php" method="post">
-              <div class="mx-auto col-6 m-2">
-                <select name="numSalle">
-                  <?php foreach ($res as $value) {
-                  echo '<option name="' .$value['numSalle']. '" value="' .$value['numSalle']. '"></option>';
-                  }
-                  ?>
-                </select>
+              <div class="form-group row">
+                <div class="col-8 mt-1">
+                  <p class="text-start">Sélectionner la salle</p>
+                </div>
+                <div class="col-4">
+                  <select name="numSalle" class="w-100">
+                    <?php
+                    foreach ($res as $value) {
+                      echo '<option name="' .$value['numSalle']. '" value="' .$value['numSalle']. '">'.$value['numSalle'].'</option>';
+                    }
+                    ?>
+                  </select>
+                </div>
               </div>
-              <button class="w-50 btn btn-primary" type="submit">Sélectionner la salle</button>
+              <div class="form-group row">
+                <div class="col-8 mt-1">
+                  <p class="text-start">Sélectionner le tarif</p>
+                </div>
+                <div class="col-4">
+                  <select name="nomTarif" class="w-100">
+                    <?php
+                    foreach ($res2 as $value) {
+                      echo '<option name="' .$value['nomTarif']. '" value="' .$value['idTarif']. '">' .$value['nomTarif']. ' - ' .$value['prixTarif']. '€</option>';
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-8 mt-1">
+                  <p class="text-start">Saisir le nombre de places</p>
+                </div>
+                <div class="col-4">
+                  <input class="w-100" type="text" name="numPlace"/>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-8 mt-1">
+                  <p class="text-start">Choix 3D</p>
+                </div>
+                <div class="col-2">
+                  <input type="radio" name="3D" value="1">
+                  <label for="1">Oui</label>
+                </div>
+                <div class="col-2">
+                  <input type="radio" name="3D" value="0">
+                  <label for="0">Non</label>
+                </div>
+              </div>
+              <div class="justify-content-center">
+                <input class="btn btn-primary" type="submit" value="Réserver" />
+              </div>
             </form>
-
-            <?php if(isset($_SESSION['numSalle'])) { echo '
-            <form method="post" action="../traitement/Reserve.php">
-              <div class="mx-auto col-6 m-2">
-                <input type="text" name="moinsPlace" class="form-control" placeholder="E-mail" required autofocus>
-              </div>
-              <div class="mx-auto col-6 m-1">
-                <input type="password" name="mdp" class="form-control" placeholder="Mot de passe" required>
-              </div>
-              <button class="w-50 btn btn-primary" type="submit">Réserver</button>
-            </form>
-            ';}?>
           </div>
         </div>
       </div>

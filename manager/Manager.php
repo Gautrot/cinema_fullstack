@@ -76,13 +76,7 @@ class Manager{
       'mdp' => $user->getMdp()
     ]);
     $res = $req->fetch();
-    /*
-    var_dump($user);
-    var_dump('mdp => ' .$user->getMdp());
-    var_dump('password_verify('.$_POST['mdp'].',' .$user->getMdp().')');
-    var_dump($res);
-    die();
-    */
+
     if ($res) {
       $_SESSION['idUtil'] = $res['idUtil'];
       $_SESSION['nom'] = $res['nom'];
@@ -143,15 +137,6 @@ class Manager{
         'rang' => $user->getRang(),
         'idTarif' => $user->getIdTarif()
       ]);
-      /*
-      var_dump($pass);
-      var_dump($hash);
-      var_dump($_SESSION);
-      var_dump($user);
-      var_dump($res);
-      var_dump($res2);
-      die();
-      */
       if ($res2) {
         header("Location: ../index.php");
         //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
@@ -225,7 +210,7 @@ class Manager{
     #Instancie la classe BDD
     $bdd = new BDD();
     $req = $bdd -> co_bdd()->prepare('SELECT * FROM tarif');
-    $req -> execute([]);
+    $req->execute([]);
     $listetarif = $req->fetchall();
     return $listetarif;
   }
@@ -233,75 +218,78 @@ class Manager{
 # Liste les films de la BDD
 
   public function selectFilm(Film $film){
+
     #Instancie la classe BDD
     $bdd = new BDD();
     $req = $bdd -> co_bdd()->prepare('SELECT * FROM film
       WHERE nomFilm = :nomFilm
     ');
-    $req -> execute([
+    $req->execute([
       'nomFilm' => $film->getNomFilm()
     ]);
-    $res = $req->fetch();
+    $film = $req->fetch();
 
-    if ($res) {
-      $_SESSION['idFilm'] = $res['idFilm'];
-      $_SESSION['nomFilm'] = str_replace('_', ' ', $res['nomFilm']);
-      $_SESSION['dateSortie'] = $res['dateSortie'];
-      $_SESSION['resumeFilm'] = $res['resumeFilm'];
+    if ($film) {
+      $_SESSION['nomFilm'] = $film['nomFilm'];
+      $_SESSION['resumeFilm'] = $film['resumeFilm'];
 
-      $req = $bdd -> co_bdd()->prepare('SELECT numSalle FROM salle
-        INNER JOIN film
-        ON film.idFilm = salle.idFilm
-        WHERE film.idFilm = :idFilm
+      $bdd = new BDD();
+      $req2 = $bdd -> co_bdd()->prepare('SELECT * FROM film
+        INNER JOIN salle
+        ON salle.idFilm = film.idFilm
       ');
-      $req -> execute([
-        'idFilm' => $film->getIdFilm()
-      ]);
-      $res2 = $req->fetchall();
+      $req2->execute([]);
+      $res = $req2->fetchall();
 
-      var_dump($res);
-      var_dump($res2);
-
-      if ($res2) {
-        $_SESSION['numSalle'] = $res2['numSalle'];
-        die();
-
-        header("Location: ../vue/".str_replace(' ', '_', $res['nomFilm']).".php");
+      if ($res) {
+        header("Location: ../vue/".$_SESSION['nomFilm'].".php");
       }
     }
   }
 
 # Liste les salles de la BDD
 
-
+public function listeSalle($numsalle){
+  #Instancie la classe BDD
+  $bdd = new BDD();
+  $req = $bdd -> co_bdd()->prepare('SELECT numSalle, nomFilm FROM salle
+    INNER JOIN film
+    ON film.idFilm = salle.idFilm
+    WHERE nomFilm = :nomFilm
+  ');
+  $req->execute([
+    'nomFilm' => $numsalle
+  ]);
+  $a = $req->fetchall();
+  return $a;
+}
 
 # Liste les utilisateurs de la BDD
 
-public function listeUtilisateur(){
-  #Instancie la classe BDD
-  $bdd = new BDD();
-  $req = $bdd -> co_bdd()->prepare('SELECT * FROM user');
-  $req -> execute([]);
-  $listeuser = $req->fetchall();
-  return $listeuser;
-}
+  public function listeUtilisateur(){
+    #Instancie la classe BDD
+    $bdd = new BDD();
+    $req = $bdd -> co_bdd()->prepare('SELECT * FROM user');
+    $req -> execute([]);
+    $listeuser = $req->fetchall();
+    return $listeuser;
+  }
 
 # Barre de recherche
 
-public function recherche(){
-  #Instancie la classe BDD
-  $bdd = new BDD();
-  $req = $bdd -> co_bdd()->prepare('SELECT * FROM livre, cd, film
-    WHERE cdnom = :cdnom
-    OR livnom = :livnom
-    OR filmnom = :filmnom
-  ');
-  $req -> execute([]);
-  $re = $req->fetchall();
-  header("Location: ../vue/recherche.php");
-  return $re;
-
-}
+  public function recherche(){
+    #Instancie la classe BDD
+    $bdd = new BDD();
+    $req = $bdd -> co_bdd()->prepare('SELECT * FROM livre, cd, film
+      WHERE cdnom = :cdnom
+      OR livnom = :livnom
+      OR filmnom = :filmnom
+    ');
+    $req -> execute([]);
+    $re = $req->fetchall();
+    header("Location: ../vue/recherche.php");
+    return $re;
+  }
 
 /*
 ----

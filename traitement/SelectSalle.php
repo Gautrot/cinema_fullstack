@@ -5,12 +5,13 @@ require_once '../manager/Manager.php';
 try {
   #Instancie la classe Utilisateur
   $salle = new Salle([
-    'numSalle' => $_POST['numSalle']
+    'numSalle' => $_POST['numSalle'],
+    'nomTarif' => $_POST['nomTarif'],
   ]);
   #Instancie la classe Manager
   $manager = new Manager();
-  #Lance la méthode connexion
-  $manager->listeSalle($salle);
+  #Lance la méthode selectSalle
+  $manager->selectSalle($salle);
 }
 
 #Affiche un message d'erreur
