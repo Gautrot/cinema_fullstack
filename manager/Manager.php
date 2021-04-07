@@ -261,8 +261,6 @@ public function listeSalle($numsalle){
     'nomFilm' => $numsalle
   ]);
   $a = $req->fetchall();
-  var_dump($numsalle);
-  var_dump($a);
   return $a;
 }
 

@@ -5,7 +5,8 @@ require_once '../manager/Manager.php';
 try {
   #Instancie la classe Utilisateur
   $salle = new Salle([
-    'idFilm' => $_SESSION['idFilm']
+    'numSalle' => $_POST['numSalle'],
+    'nomTarif' => $_POST['nomTarif'],
   ]);
   #Instancie la classe Manager
   $manager = new Manager();
