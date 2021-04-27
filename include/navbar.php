@@ -24,8 +24,8 @@
             </svg>
           </button>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><p class="m-0 ms-2">Places : </p></li>
-            <li><p class="m-0 ms-2">Somme : €</p></li>
+            <li><p class="m-0 ms-2">Places : 0</p></li>
+            <li><p class="m-0 ms-2">Somme : 0.00 €</p></li>
           </ul>
         </li>
       </ul>
