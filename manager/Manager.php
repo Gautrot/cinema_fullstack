@@ -191,43 +191,35 @@ class Manager{
   public function nouvMdp(Utilisateur $user) {
     #Instancie la classe BDD
     $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT * FROM utilisateur
-      WHERE email = :email
-    ');
-    $req -> execute([
-      'email' => $user->getEmail()
-    ]);
-    $res = $req -> fetch();
 
-# Si le compte existe dans la BDD.
+    //$pass = $_POST['mdp'];
+    //$hash = password_hash($pass, PASSWORD_DEFAULT);
+
+    $req = $bdd->co_bdd()->prepare('UPDATE utilisateur
+      VALUES mdp = :mdp
+      WHERE idUtil = :idUtil
+    ');
+    //$req->bindParam(':mdp', $hash, PDO::PARAM_STR);
+    $res = $req->execute([
+      'mdp' => $user->getMdp(),
+      'idUtil' => $user->getIdUtil(),
+    ]);
+
+    var_dump($_SESSION);
+    var_dump($res);
+
+    die();
 
     if ($res) {
-      $pass = $_POST['mdp'];
-      $hash = password_hash($pass, PASSWORD_DEFAULT);
-
-      $req = $bdd->co_bdd()->prepare('UPDATE utilisateur
-        VALUES mdp = :mdp
-        WHERE idUtil = :idUtil
-      ');
-      $req->bindParam(':mdp', $hash, PDO::PARAM_STR);
-      $res2 = $req->execute([
-        'mdp' => $user->getMdp(),
-      ]);
-
-      var_dump($_SESSION);
-      die();
-
-      if ($res2) {
-        header("Location: ../index.php");
-        //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
-      }
+      header("Location: ../index.php");
+      //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
+    }
 
 # Si un ou plusieurs champs sont vides.
 
-      else {
-        header("Location: ../vue/Inscription.php");
-        throw new Exception("Inscription échouée !");
-      }
+    else {
+      header("Location: ../vue/NouvMdp.php");
+      throw new Exception("Inscription échouée !");
     }
   }
 

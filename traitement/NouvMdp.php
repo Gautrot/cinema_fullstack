@@ -6,7 +6,6 @@ require_once '../manager/Manager.php';
 if ($_POST['mdp'] === $_POST['mdpconfirm']) {
   try {
     #Instancie la classe Utilisateur
-    $mdp = $_POST['mdp'];
     $user = new Utilisateur([
       'mdp' => $_POST['mdp'],
     ]);
