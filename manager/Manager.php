@@ -59,22 +59,26 @@ catch (Exception $e) {
 # Fin PHP Mailer
 */
 # Début classe Manager
+
 class Manager{
+
+// CONNECTION ET INSCRIPTION //
 
 # Connexion
 
   public function connexion(Utilisateur $user) {
 # Instancie la classe BDD
     $bdd = new BDD();
-
     $req = $bdd->co_bdd()->prepare('SELECT * FROM utilisateur
       WHERE email = :email
       AND mdp = :mdp
     ');
+
     $req -> execute([
       'email' => $user->getEmail(),
       'mdp' => $user->getMdp()
     ]);
+
     $res = $req->fetch();
 
     if ($res) {
@@ -151,6 +155,76 @@ class Manager{
     }
   }
 
+
+# Mot de passe oublié
+
+  public function oublieMdp(Utilisateur $user) {
+# Instancie la classe BDD
+    $bdd = new BDD();
+
+    $req = $bdd->co_bdd()->prepare('SELECT * FROM utilisateur
+      WHERE email = :email
+    ');
+
+    $req -> execute([
+      'email' => $user->getEmail(),
+    ]);
+
+    $res = $req->fetch();
+
+    if ($res) {
+      $_SESSION['idUtil'] = $res['idUtil'];
+      $_SESSION['email'] = $res['email'];
+      header("Location: ../vue/NouvMdp.php");
+    }
+
+# Si la saisie de l'e-mail est incorrecte.
+
+    else {
+      header("Location: ../index.php");
+      throw new Exception ("L'e-mail est incorrecte ou n'existe pas.");
+    }
+  }
+
+# Modification d'un mot de passe
+
+  public function nouvMdp(Utilisateur $user) {
+    #Instancie la classe BDD
+    $bdd = new BDD();
+
+    //$pass = $_POST['mdp'];
+    //$hash = password_hash($pass, PASSWORD_DEFAULT);
+
+    $req = $bdd->co_bdd()->prepare('UPDATE utilisateur
+      VALUES mdp = :mdp
+      WHERE idUtil = :idUtil
+    ');
+    //$req->bindParam(':mdp', $hash, PDO::PARAM_STR);
+    $res = $req->execute([
+      'mdp' => $user->getMdp(),
+      'idUtil' => $user->getIdUtil(),
+    ]);
+
+    var_dump($_SESSION);
+    var_dump($res);
+
+    die();
+
+    if ($res) {
+      header("Location: ../index.php");
+      //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
+    }
+
+# Si un ou plusieurs champs sont vides.
+
+    else {
+      header("Location: ../vue/NouvMdp.php");
+      throw new Exception("Inscription échouée !");
+    }
+  }
+
+// ACCUEIL //
+
 # Modification d'un compte
 
   public function modifier(Utilisateur $user) {
@@ -196,12 +270,6 @@ class Manager{
         throw new Exception("Modification échouée !");
       }
     }
-  }
-
-# Mot de passe oublié
-
-  public function oublie(Utilisateur $user) {
-
   }
 
 # Liste les tarifs de la BDD

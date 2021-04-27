@@ -3,23 +3,33 @@
   <!-- Container Start -->
   <div class="container">
     <div class="row">
-      <div class="mt-2 col-lg-3 col-md-3 offset-md-1 offset-lg-1">
-        <!-- About -->
-        <h4>Contacts</h4>
-        <!-- Description -->
-        <p class="">Avenue Ambroise Croizat - 93440 Dugny<br>01 49 34 11 54</p>
+      <!-- Météo API -->
+      <div class="mt-2 col-lg-3 col-md-3 offset-md-1 offset-lg-0">
+        <h4>Météo</h4>
+        <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+        <div class="elfsight-app-3b7bb7de-0262-4d60-b855-2f769899b80b"></div>
       </div>
-      <!-- Link list -->
+      <!-- Liens rapides -->
       <div class="mt-2 col-lg-3 col-md-3 offset-md-1 offset-lg-1">
         <h4>Liens rapides</h4>
         <form action="../vue/contact.php" method="post">
           <a href="../vue/contact.php">Contact</a>
         </form>
       </div>
-      <!-- Link list -->
+      <!-- Google Maps API -->
       <div class="mt-2 col-lg-3 col-md-3 offset-md-1 offset-lg-0">
         <h4>Accès</h4>
-        <p>Bus 133 - Arrêt Gabriel Peri<br>Bus 249 - Arrêt Leo Lagrang</p>
+        <iframe
+          width="600"
+          height="450"
+          style="border:0"
+          loading="lazy"
+          allowfullscreen
+          src="https://www.google.com/maps/embed/v1/place
+            ?key=AIzaSyBGOHQOO2ESfYswiUrkNtZt5YahdB70WzY
+            &q=Eiffel+Tower,Paris+France
+        ">
+        </iframe>
       </div>
     </div>
   </div>

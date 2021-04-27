@@ -4,7 +4,6 @@ require_once '../model/Salle.php';
 require_once '../manager/Manager.php';
 
 setlocale(LC_ALL, 'fr_FR');
-$date = $_SESSION['dateSortie'];
 
 #Instancie la classe Manager
 $numsalle = new Manager();
