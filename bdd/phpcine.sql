@@ -1,0 +1,146 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Apr 28, 2021 at 06:44 AM
+-- Server version: 5.7.31
+-- PHP Version: 7.3.21
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `phpcine`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `film`
+--
+
+DROP TABLE IF EXISTS `film`;
+CREATE TABLE IF NOT EXISTS `film` (
+  `idFilm` smallint(5) NOT NULL,
+  `nomFilm` varchar(40) COLLATE utf8_bin DEFAULT NULL,
+  `dateSortie` date DEFAULT NULL,
+  `resumeFilm` text COLLATE utf8_bin,
+  PRIMARY KEY (`idFilm`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `film`
+--
+
+INSERT INTO `film` (`idFilm`, `nomFilm`, `dateSortie`, `resumeFilm`) VALUES
+(1, 'Film_1', '2021-03-31', 'Résumé du Film 1.'),
+(2, 'Film_2', '2021-03-25', 'Résumé du Film 2.'),
+(3, 'Film_3', '2021-04-04', 'Résumé du film 3.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `salle`
+--
+
+DROP TABLE IF EXISTS `salle`;
+CREATE TABLE IF NOT EXISTS `salle` (
+  `idSalle` smallint(5) NOT NULL,
+  `numSalle` int(3) DEFAULT NULL,
+  `numPlace` int(3) DEFAULT NULL,
+  `maxPlace` int(3) DEFAULT NULL,
+  `idFilm` smallint(5) NOT NULL,
+  PRIMARY KEY (`idSalle`),
+  KEY `idFilm` (`idFilm`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `salle`
+--
+
+INSERT INTO `salle` (`idSalle`, `numSalle`, `numPlace`, `maxPlace`, `idFilm`) VALUES
+(1, 1, 100, 100, 1),
+(2, 11, 100, 100, 1),
+(3, 14, 100, 100, 2),
+(4, 7, 100, 100, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tarif`
+--
+
+DROP TABLE IF EXISTS `tarif`;
+CREATE TABLE IF NOT EXISTS `tarif` (
+  `idTarif` smallint(5) NOT NULL,
+  `nomTarif` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+  `prixTarif` float(5,2) DEFAULT NULL,
+  PRIMARY KEY (`idTarif`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `tarif`
+--
+
+INSERT INTO `tarif` (`idTarif`, `nomTarif`, `prixTarif`) VALUES
+(1, 'Etudiant', 7.50),
+(2, 'Enfant', 5.00),
+(3, 'Navigo', 8.00),
+(4, 'Plein', 11.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ticket`
+--
+
+DROP TABLE IF EXISTS `ticket`;
+CREATE TABLE IF NOT EXISTS `ticket` (
+  `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `idUtil` smallint(5) NOT NULL,
+  `idSalle` smallint(5) NOT NULL,
+  `idTarif` smallint(5) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idUtil` (`idUtil`),
+  UNIQUE KEY `idTarif` (`idTarif`),
+  KEY `idSalle` (`idSalle`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `utilisateur`
+--
+
+DROP TABLE IF EXISTS `utilisateur`;
+CREATE TABLE IF NOT EXISTS `utilisateur` (
+  `idUtil` smallint(5) NOT NULL AUTO_INCREMENT,
+  `rang` char(4) COLLATE utf8_bin DEFAULT NULL,
+  `nom` varchar(40) COLLATE utf8_bin DEFAULT NULL,
+  `prenom` varchar(40) COLLATE utf8_bin DEFAULT NULL,
+  `email` varchar(40) COLLATE utf8_bin DEFAULT NULL,
+  `mdp` text COLLATE utf8_bin,
+  `placeRes` int(3) DEFAULT NULL,
+  `sommeTarif` float DEFAULT NULL,
+  PRIMARY KEY (`idUtil`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`idUtil`, `rang`, `nom`, `prenom`, `email`, `mdp`, `placeRes`, `sommeTarif`) VALUES
+(1, 'USER', 'A', 'A', 'a@gmail.com', 'a', NULL, NULL);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
