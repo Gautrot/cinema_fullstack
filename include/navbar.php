@@ -28,6 +28,11 @@
             <li><p class="m-0 ms-2">Somme : 0.00 €</p></li>
           </ul>
         </li>
+        <li class="nav-item m-2">
+          <form action="../vue/ReserveValide.php" method="post">
+            <button class="btn btn-primary" type="submit">Valider la réservation</button>
+          </form>
+        </li>
       </ul>
     </div>
   </div>
