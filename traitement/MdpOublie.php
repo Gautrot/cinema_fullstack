@@ -5,7 +5,7 @@ require_once '../manager/Manager.php';
 try {
   #Instancie la classe Utilisateur
   $user = new Utilisateur([
-    'email' => $_POST['email'],
+    'email' => $_POST['email']
   ]);
   #Instancie la classe Manager
   $manager = new Manager();

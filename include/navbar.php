@@ -16,6 +16,11 @@
             <button class="btn btn-primary" type="submit">Modifier</button>
           </form>
         </li>
+        <li class="nav-item m-2">
+          <form action="../vue/ReserveValide.php" method="post">
+            <button class="btn btn-primary" type="submit">Valider la réserve</button>
+          </form>
+        </li>
         <li class="nav-item dropdown m-2">
           <button class="nav-link dropdown-toggle btn btn-primary" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Réservation
@@ -28,6 +33,22 @@
             <li><p class="m-0 ms-2">Somme : 0.00 €</p></li>
           </ul>
         </li>
+        <?php
+        if ($_SESSION['rang'] === 'ADMIN') {
+          echo '
+          <li class="nav-item m-2">
+            <form action="../vue/ListeUtil.php" method="post">
+              <button class="btn btn-primary" type="submit">Liste d\'utilisateur</button>
+            </form>
+          </li>
+          <li class="nav-item m-2">
+            <form action="../vue/ListeTicket.php" method="post">
+              <button class="btn btn-primary" type="submit">Liste de tickets</button>
+            </form>
+          </li>
+          ';
+        }
+        ?>
       </ul>
     </div>
   </div>

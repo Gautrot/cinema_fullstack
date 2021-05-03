@@ -3,10 +3,10 @@ require_once '../model/Salle.php';
 require_once '../manager/Manager.php';
 
 try {
-  #Instancie la classe Utilisateur
+  #Instancie la classe Salle
   $salle = new Salle([
     'numSalle' => $_POST['numSalle'],
-    'nomTarif' => $_POST['nomTarif'],
+    'numRes' => $_POST['numRes']
   ]);
   #Instancie la classe Manager
   $manager = new Manager();

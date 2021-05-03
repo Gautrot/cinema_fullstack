@@ -7,7 +7,7 @@ if ($_POST['mdp'] === $_POST['mdpconfirm']) {
   try {
     #Instancie la classe Utilisateur
     $user = new Utilisateur([
-      'mdp' => $_POST['mdp'],
+      'mdp' => $_POST['mdp']
     ]);
     #Instancie la classe Manager
     $manager = new Manager();

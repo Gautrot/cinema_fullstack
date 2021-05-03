@@ -155,7 +155,6 @@ class Manager{
     }
   }
 
-
 # Mot de passe oublié
 
   public function oublieMdp(Utilisateur $user) {
@@ -359,11 +358,111 @@ public function listeSalle($numsalle){
     return $re;
   }
 
+// RESERVER //
+
+# Ajoute un ticket
+
+  public function addTicket(Ticket $ticket) {
+# Instancie la classe BDD
+    $bdd = new BDD();
+
+    $req = $bdd->co_bdd()->prepare('SELECT * FROM tarif, utilisateur, salle
+      WHERE tarif.idTarif = :idTarif
+      AND utilisateur.idUtil = :idUtil
+      AND salle.idSalle = :idSalle
+    ');
+
+    $req -> execute([
+      'idSalle' => $ticket->getIdSalle(),
+      'idUtil' => $ticket->getIdUtil(),
+      'idTarif' => $ticket->getIdTarif()
+    ]);
+
+    $res = $req->fetch();
+
+    var_dump($_SESSION);
+    var_dump($req);
+    die();
+
+    if ($res) {
+      $req = $bdd->co_bdd()->prepare('INSERT INTO ticket (idUtil, idSalle, idTarif)
+        VALUES (idUtil = :idUtil, idSalle = :idSalle, idTarif = :idTarif);
+      ');
+    }
+  }
+
+# Sélectionne le tarif choisi
+
+  public function selectTarif(Tarif $tarif) {
+# Instancie la classe BDD
+    $bdd = new BDD();
+
+    $req = $bdd->co_bdd()->prepare('SELECT * FROM tarif
+      WHERE idTarif = :idTarif;
+    ');
+
+    $req -> execute([
+      'idTarif' => $tarif->getIdTarif()
+    ]);
+
+    $res = $req->fetch();
+
+    if ($res) {
+      $_SESSION['idTarif'] = $res['idTarif'];
+    }
+
+# Sinon erreur.
+
+    else {
+      header("Location: ../vue/Reserve.php");
+      throw new Exception ("Une erreur s'est produite lors de la réservation.");
+    }
+  }
+
+# Sélectionne la salle choisie
+
+  public function selectSalle(Salle $salle) {
+# Instancie la classe BDD
+    $bdd = new BDD();
+
+    $req = $bdd->co_bdd()->prepare('SELECT * FROM salle
+      WHERE numSalle = :numSalle
+    ');
+
+    $req -> execute([
+      'numSalle' => $salle->getNumSalle()
+    ]);
+
+    $res = $req->fetch();
+
+    if ($res) {
+      $_SESSION['idSalle'] = $res['idSalle'];
+
+      var_dump($_SESSION);
+      var_dump($req);
+      die();
+    }
+
+# Sinon erreur.
+
+    else {
+      var_dump($_SESSION);
+      var_dump($req);
+      var_dump($_POST['numSalle']);
+      die();
+
+      header("Location: ../vue/Reserve.php");
+      throw new Exception ("Une erreur s'est produite lors de la réservation.");
+    }
+  }
+
 /*
 ----
 Partie Administration
 ----
 */
+
+/*
 
 # Ajout d'un utilisateur
 
@@ -442,11 +541,15 @@ Partie Administration
     }
   }
 
+*/
+
 /*
 ----
 Film
 ----
 */
+
+/*
 
 # Liste les films de la BDD
 
@@ -514,7 +617,7 @@ public function listFilm(){
     }
   }
 
-# Modification d'un cd
+# Modification d'un film
 
   public function modifFilm($film) {
     #Instancie la classe BDD
@@ -565,6 +668,7 @@ public function listFilm(){
       }
     }
   }
+*/
 
 # Fin classe Manager
 

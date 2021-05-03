@@ -3,6 +3,8 @@ require_once '../model/Film.php';
 require_once '../model/Salle.php';
 require_once '../manager/Manager.php';
 
+var_dump($_SESSION);
+
 #Instancie la classe Manager
 $numsalle = new Manager();
 #Lance la méthode listeSalle
@@ -58,7 +60,7 @@ $res2 = $listetarif->listeTarif();
         <div class="container">
           <h1>Réserver une place pour <?php echo str_replace('_', ' ', $_SESSION['nomFilm']); ?></h1>
           <div class="row mx-auto col-6 card card-body shadow-lg my-5 text-center">
-            <form action="../traitement/SelectSalle.php" method="post">
+            <form action="../traitement/Reserve.php" method="post">
               <div class="form-group row">
                 <div class="col-8 mt-1">
                   <p class="text-start">Sélectionner la salle</p>
@@ -78,7 +80,7 @@ $res2 = $listetarif->listeTarif();
                   <p class="text-start">Sélectionner le tarif</p>
                 </div>
                 <div class="col-4">
-                  <select name="nomTarif" class="w-100">
+                  <select name="idTarif" class="w-100">
                     <?php
                     foreach ($res2 as $value) {
                       echo '<option name="' .$value['nomTarif']. '" value="' .$value['idTarif']. '">' .$value['nomTarif']. ' - ' .$value['prixTarif']. '€</option>';
@@ -92,7 +94,7 @@ $res2 = $listetarif->listeTarif();
                   <p class="text-start">Saisir le nombre de places</p>
                 </div>
                 <div class="col-4">
-                  <input class="w-100" type="text" name="numPlace"/>
+                  <input class="w-100" type="text" name="numRes"/>
                 </div>
               </div>
               <div class="form-group row">
