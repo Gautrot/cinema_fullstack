@@ -2,7 +2,7 @@
 require_once '../model/Utilisateur.php';
 require_once '../manager/Manager.php';
 
-#Vérifie si les mot de passes et emails sont identiques
+#Vérifie si la ligne est rempli dans le tableau
 try {
   #Instancie la classe Utilisateur
   $mdp = $_POST['mdp'];

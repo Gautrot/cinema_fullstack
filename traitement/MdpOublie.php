@@ -9,7 +9,7 @@ try {
   ]);
   #Instancie la classe Manager
   $manager = new Manager();
-  #Lance la méthode connexion
+  #Lance la méthode oublieMdp
   $manager->oublieMdp($user);
 }
 

@@ -66,14 +66,15 @@ $res = $liste->listeTicket();
                   </tr>
                 </thead>
                 <tbody>
-                  <form method="post" action="../traitement/SupprTicket.php">
+                  <form method="post" action="../traitement/DeleteTicket.php">
                     <?php
                     foreach ($res as $value) {
                     ?>
                     <tr>
-                      <td name="<?php echo $value['idUtil']; ?>"><?php echo $value['idUtil']; ?></td>
-                      <td name="<?php echo $value['idSalle']; ?>"><?php echo $value['idSalle']; ?></td>
-                      <td name="<?php echo $value['idTarif']; ?>"><?php echo $value['idTarif']; ?></td>
+                      <td name="<?php echo $value['id']; ?>" value="<?php echo $value['id']; ?>"><?php echo $value['id']; ?></td>
+                      <td name="<?php echo $value['idUtil']; ?>" value="<?php echo $value['idUtil']; ?>"><?php echo $value['idUtil']; ?></td>
+                      <td name="<?php echo $value['idSalle']; ?>" value="<?php echo $value['idSalle']; ?>"><?php echo $value['idSalle']; ?></td>
+                      <td name="<?php echo $value['idTarif']; ?>" value="<?php echo $value['idTarif']; ?>"><?php echo $value['idTarif']; ?></td>
                       <td><input class="btn btn-primary" type="submit" value="Supprimer" /></td>
                     </tr>
                     <?php

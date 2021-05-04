@@ -12,8 +12,8 @@
       <!-- Liens rapides -->
       <div class="mt-2 col-lg-3 col-md-3 offset-md-1 offset-lg-1">
         <h4>Liens rapides</h4>
-        <form action="../vue/contact.php" method="post">
-          <a href="../vue/contact.php">Contact</a>
+        <form action="../vue/Contact.php" method="post">
+          <a href="../vue/Contact.php">Contact</a>
         </form>
       </div>
       <!-- Google Maps API -->

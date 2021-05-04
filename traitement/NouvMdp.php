@@ -2,7 +2,7 @@
 require_once '../model/Utilisateur.php';
 require_once '../manager/Manager.php';
 
-#Vérifie si les mot de passes et emails sont identiques
+#Vérifie si les nouveaux mot de passes sont identiques
 if ($_POST['mdp'] === $_POST['mdpconfirm']) {
   try {
     #Instancie la classe Utilisateur
@@ -11,7 +11,7 @@ if ($_POST['mdp'] === $_POST['mdpconfirm']) {
     ]);
     #Instancie la classe Manager
     $manager = new Manager();
-    #Lance la méthode inscription
+    #Lance la méthode nouvMdp
     $manager->nouvMdp($user);
     //$_SESSION['succes'] = $s->getMessage();
   }

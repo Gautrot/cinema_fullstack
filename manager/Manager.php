@@ -58,6 +58,7 @@ catch (Exception $e) {
 
 # Fin PHP Mailer
 */
+
 # Début classe Manager
 
 class Manager{
@@ -73,13 +74,13 @@ class Manager{
       WHERE email = :email
       AND mdp = :mdp
     ');
-
     $req -> execute([
       'email' => $user->getEmail(),
       'mdp' => $user->getMdp()
     ]);
-
     $res = $req->fetch();
+
+# Si le formulaire de connexion est complété et trouvé dans la BDD.
 
     if ($res) {
       $_SESSION['idUtil'] = $res['idUtil'];
@@ -118,7 +119,7 @@ class Manager{
     ]);
     $res = $req -> fetchall();
 
-# Si le compte existe dans la BDD.
+# Si le compte existe dans la BDD, erreur.
 
     if ($res) {
       header("Location: ../vue/Inscription.php");
@@ -126,13 +127,13 @@ class Manager{
     }
 
     else {
-      $pass = $_POST['mdp'];
-      $hash = password_hash($pass, PASSWORD_DEFAULT);
+      //$pass = $_POST['mdp'];
+      //$hash = password_hash($pass, PASSWORD_DEFAULT);
 
       $req = $bdd->co_bdd()->prepare('INSERT INTO utilisateur (email, mdp, nom, prenom, rang, idTarif)
         VALUES (:email, :mdp, :nom, :prenom, :rang, :idTarif)
       ');
-      $req->bindParam(':mdp', $hash, PDO::PARAM_STR);
+      //$req->bindParam(':mdp', $hash, PDO::PARAM_STR);
       $res2 = $req->execute([
         'email' => $user->getEmail(),
         'mdp' => $user->getMdp(),
@@ -141,6 +142,9 @@ class Manager{
         'rang' => $user->getRang(),
         'idTarif' => $user->getIdTarif()
       ]);
+
+# Si le formulaire d'inscription est complété.
+
       if ($res2) {
         header("Location: ../index.php");
         //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
@@ -160,16 +164,15 @@ class Manager{
   public function oublieMdp(Utilisateur $user) {
 # Instancie la classe BDD
     $bdd = new BDD();
-
     $req = $bdd->co_bdd()->prepare('SELECT * FROM utilisateur
       WHERE email = :email
     ');
-
     $req -> execute([
-      'email' => $user->getEmail(),
+      'email' => $user->getEmail()
     ]);
-
     $res = $req->fetch();
+
+# S'il trouve l'email de l'utilisateur, il redirige vers une page pour modifier son mot de passe.
 
     if ($res) {
       $_SESSION['idUtil'] = $res['idUtil'];
@@ -180,7 +183,7 @@ class Manager{
 # Si la saisie de l'e-mail est incorrecte.
 
     else {
-      header("Location: ../index.php");
+      header("Location: ../vue/MdpOublie.php");
       throw new Exception ("L'e-mail est incorrecte ou n'existe pas.");
     }
   }
@@ -190,35 +193,36 @@ class Manager{
   public function nouvMdp(Utilisateur $user) {
     #Instancie la classe BDD
     $bdd = new BDD();
-
     //$pass = $_POST['mdp'];
     //$hash = password_hash($pass, PASSWORD_DEFAULT);
-
     $req = $bdd->co_bdd()->prepare('UPDATE utilisateur
-      VALUES mdp = :mdp
+      SET mdp = :mdp
       WHERE idUtil = :idUtil
     ');
     //$req->bindParam(':mdp', $hash, PDO::PARAM_STR);
     $res = $req->execute([
       'mdp' => $user->getMdp(),
-      'idUtil' => $user->getIdUtil(),
+      'idUtil' => $user->getIdUtil()
     ]);
 
-    var_dump($_SESSION);
+    var_dump($_POST['mdp']);
+    var_dump($req);
     var_dump($res);
+    var_dump($_SESSION);
 
-    die();
+# Si le nouveau mot de passe est saisie, il redirige vers le formulaire de connexion.
 
     if ($res) {
-      header("Location: ../index.php");
+      //header("Location: ../index.php");
       //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
     }
 
 # Si un ou plusieurs champs sont vides.
 
     else {
-      header("Location: ../vue/NouvMdp.php");
-      throw new Exception("Inscription échouée !");
+      die();
+      //header("Location: ../vue/NouvMdp.php");
+      throw new Exception("Modification échouée !");
     }
   }
 
@@ -239,6 +243,8 @@ class Manager{
     ]);
     $res = $req -> fetch();
 
+# S'il trouve l'utilisateur
+
     if ($res) {
       $req = $bdd -> co_bdd()->prepare('UPDATE utilisateur
       SET email = :email,
@@ -255,11 +261,12 @@ class Manager{
         'idUtil' => $user->getIdUtil()
       ]);
 
+# Si le formulaire de modification est bien complété
+
       if ($res2) {
         $_SESSION['nom'] = $res2['nom'];
         $_SESSION['prenom'] = $res2['prenom'];
         $_SESSION['email'] = $res2['email'];
-        //
         header("Location: ../vue/Accueil.php");
         //throw new Exception("Votre compte à été modifié avec succès !");
       }
@@ -271,21 +278,9 @@ class Manager{
     }
   }
 
-# Liste les tarifs de la BDD
-
-  public function listeTarif(){
-    #Instancie la classe BDD
-    $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT * FROM tarif');
-    $req->execute([]);
-    $listetarif = $req->fetchall();
-    return $listetarif;
-  }
-
-# Liste les films de la BDD
+# Sélectionne les films de la BDD
 
   public function selectFilm(Film $film){
-
     #Instancie la classe BDD
     $bdd = new BDD();
     $req = $bdd -> co_bdd()->prepare('SELECT * FROM film
@@ -295,6 +290,8 @@ class Manager{
       'nomFilm' => $film->getNomFilm()
     ]);
     $film = $req->fetch();
+
+# S'il trouve le nom du film.
 
     if ($film) {
       $_SESSION['nomFilm'] = $film['nomFilm'];
@@ -308,28 +305,130 @@ class Manager{
       $req2->execute([]);
       $res = $req2->fetchall();
 
+# S'il trouve le film dans une ou plusieurs salles, il déplace l'utilisateur vers le lien correspondant au nom du film.
+
       if ($res) {
         header("Location: ../vue/".$_SESSION['nomFilm'].".php");
       }
     }
   }
 
+// RESERVER //
+
+# Ajoute un ticket
+
+  public function addTicket(Ticket $ticket) {
+# Instancie la classe BDD
+    $bdd = new BDD();
+    $req = $bdd->co_bdd()->prepare('SELECT * FROM tarif, utilisateur, salle
+      WHERE tarif.idTarif = :idTarif
+      AND utilisateur.idUtil = :idUtil
+      AND salle.idSalle = :idSalle
+    ');
+    $req -> execute([
+      'idSalle' => $ticket->getIdSalle(),
+      'idUtil' => $ticket->getIdUtil(),
+      'idTarif' => $ticket->getIdTarif()
+    ]);
+    $res = $req->fetch();
+
+# S'il trouve les ID de l'utilisateur, du tarif et de la salle, il ajoute un nouveau ticket.
+
+    if ($res) {
+      $req = $bdd->co_bdd()->prepare('INSERT INTO ticket (idUtil, idSalle, idTarif)
+        VALUES (idUtil = :idUtil, idSalle = :idSalle, idTarif = :idTarif);
+      ');
+    }
+  }
+
+# Sélectionne le tarif choisi
+
+  public function selectTarif(Tarif $tarif) {
+# Instancie la classe BDD
+    $bdd = new BDD();
+    $req = $bdd->co_bdd()->prepare('SELECT * FROM tarif
+      WHERE idTarif = :idTarif;
+    ');
+    $req -> execute([
+      'idTarif' => $tarif->getIdTarif()
+    ]);
+    $res = $req->fetch();
+
+# S'il trouve l'ID du tarif, il retourne son ID.
+
+    if ($res) {
+      $_SESSION['idTarif'] = $res['idTarif'];
+    }
+
+# Sinon erreur.
+
+    else {
+      header("Location: ../vue/Reserve.php");
+      throw new Exception ("Une erreur s'est produite lors de la réservation.");
+    }
+  }
+
+# Sélectionne la salle choisie
+
+  public function selectSalle(Salle $salle) {
+# Instancie la classe BDD
+    $bdd = new BDD();
+    $req = $bdd->co_bdd()->prepare('SELECT * FROM salle
+      WHERE numSalle = :numSalle
+    ');
+    $req -> execute([
+      'numSalle' => $salle->getNumSalle()
+    ]);
+    $res = $req->fetch();
+
+# S'il trouve le numéro de la salle, il retourne son ID.
+
+    if ($res) {
+      $_SESSION['idSalle'] = $res['idSalle'];
+    }
+
+# Sinon erreur.
+
+    else {
+      header("Location: ../vue/Reserve.php");
+      throw new Exception ("Une erreur s'est produite lors de la réservation.");
+    }
+  }
+
+/*
+----
+Partie Administration
+----
+*/
+
+
 # Liste les salles de la BDD
 
-public function listeSalle($numsalle){
-  #Instancie la classe BDD
-  $bdd = new BDD();
-  $req = $bdd -> co_bdd()->prepare('SELECT numSalle, nomFilm FROM salle
-    INNER JOIN film
-    ON film.idFilm = salle.idFilm
-    WHERE nomFilm = :nomFilm
-  ');
-  $req->execute([
-    'nomFilm' => $numsalle
-  ]);
-  $a = $req->fetchall();
-  return $a;
-}
+  public function listeSalle($numsalle){
+    #Instancie la classe BDD
+    $bdd = new BDD();
+    $req = $bdd -> co_bdd()->prepare('SELECT numSalle, nomFilm FROM salle
+      INNER JOIN film
+      ON film.idFilm = salle.idFilm
+      WHERE nomFilm = :nomFilm
+    ');
+    $req->execute([
+      'nomFilm' => $numsalle
+    ]);
+    $a = $req->fetchall();
+    return $a;
+  }
+
+# Liste les tarifs de la BDD
+
+  public function listeTarif(){
+    #Instancie la classe BDD
+    $bdd = new BDD();
+    $req = $bdd -> co_bdd()->prepare('SELECT * FROM tarif');
+    $req->execute([]);
+    $listetarif = $req->fetchall();
+    return $listetarif;
+  }
 
 # Liste les utilisateurs de la BDD
 
@@ -352,129 +451,6 @@ public function listeSalle($numsalle){
     $listeticket = $req->fetchall();
     return $listeticket;
   }
-
-# Barre de recherche
-
-  public function recherche(){
-    #Instancie la classe BDD
-    $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT * FROM livre, cd, film
-      WHERE cdnom = :cdnom
-      OR livnom = :livnom
-      OR filmnom = :filmnom
-    ');
-    $req -> execute([]);
-    $re = $req->fetchall();
-    header("Location: ../vue/recherche.php");
-    return $re;
-  }
-
-// RESERVER //
-
-# Ajoute un ticket
-
-  public function addTicket(Ticket $ticket) {
-# Instancie la classe BDD
-    $bdd = new BDD();
-
-    $req = $bdd->co_bdd()->prepare('SELECT * FROM tarif, utilisateur, salle
-      WHERE tarif.idTarif = :idTarif
-      AND utilisateur.idUtil = :idUtil
-      AND salle.idSalle = :idSalle
-    ');
-
-    $req -> execute([
-      'idSalle' => $ticket->getIdSalle(),
-      'idUtil' => $ticket->getIdUtil(),
-      'idTarif' => $ticket->getIdTarif()
-    ]);
-
-    $res = $req->fetch();
-
-    var_dump($_SESSION);
-    var_dump($req);
-    die();
-
-    if ($res) {
-      $req = $bdd->co_bdd()->prepare('INSERT INTO ticket (idUtil, idSalle, idTarif)
-        VALUES (idUtil = :idUtil, idSalle = :idSalle, idTarif = :idTarif);
-      ');
-    }
-  }
-
-# Sélectionne le tarif choisi
-
-  public function selectTarif(Tarif $tarif) {
-# Instancie la classe BDD
-    $bdd = new BDD();
-
-    $req = $bdd->co_bdd()->prepare('SELECT * FROM tarif
-      WHERE idTarif = :idTarif;
-    ');
-
-    $req -> execute([
-      'idTarif' => $tarif->getIdTarif()
-    ]);
-
-    $res = $req->fetch();
-
-    if ($res) {
-      $_SESSION['idTarif'] = $res['idTarif'];
-    }
-
-# Sinon erreur.
-
-    else {
-      header("Location: ../vue/Reserve.php");
-      throw new Exception ("Une erreur s'est produite lors de la réservation.");
-    }
-  }
-
-# Sélectionne la salle choisie
-
-  public function selectSalle(Salle $salle) {
-# Instancie la classe BDD
-    $bdd = new BDD();
-
-    $req = $bdd->co_bdd()->prepare('SELECT * FROM salle
-      WHERE numSalle = :numSalle
-    ');
-
-    $req -> execute([
-      'numSalle' => $salle->getNumSalle()
-    ]);
-
-    $res = $req->fetch();
-
-    if ($res) {
-      $_SESSION['idSalle'] = $res['idSalle'];
-/*
-      var_dump($_SESSION);
-      var_dump($req);
-      die();
-*/
-    }
-
-# Sinon erreur.
-
-    else {
-/*
-      var_dump($_SESSION);
-      var_dump($req);
-      var_dump($_POST['numSalle']);
-      die();
-*/
-
-      header("Location: ../vue/Reserve.php");
-      throw new Exception ("Une erreur s'est produite lors de la réservation.");
-    }
-  }
-
-/*
-----
-Partie Administration
-----
-*/
 
 # Ajout d'utilisateur
 
@@ -511,6 +487,7 @@ Partie Administration
         'prenom' => $user->getPrenom(),
         'rang' => $user->getRang(),
       ]);
+
       if ($res2) {
         header("Location: ../vue/ListeUtil.php");
         //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
@@ -525,33 +502,58 @@ Partie Administration
     }
   }
 
-# Suppresion d'utilisateur
+# Suppression d'un utilisateur
 
   public function deleteUtil(Utilisateur $user) {
     #Instancie la classe BDD
     $bdd = new BDD();
-    $req = $bdd -> co_bdd()->prepare('SELECT * FROM utilisateur
+    $req = $bdd->co_bdd()->prepare('DELETE FROM utilisateur
       WHERE idUtil = :idUtil
     ');
-    $req -> execute([
+    $res = $req->execute([
       'idUtil' => $user->getIdUtil()
+    ]);
+
+    if ($res) {
+      header("Location: ../vue/ListeUtil.php");
+      //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
+    }
+
+# Si un ou plusieurs champs sont vides.
+
+    else {
+      header("Location: ../vue/ListeUtil.php");
+      throw new Exception("Suppression échouée !");
+    }
+  }
+
+# Suppression d'un ticket
+
+  public function deleteTicket(Ticket $ticket) {
+    #Instancie la classe BDD
+    $bdd = new BDD();
+    $req = $bdd -> co_bdd()->prepare('SELECT * FROM ticket
+      WHERE id = :id
+    ');
+    $req -> execute([
+      'id' => $ticket->getId()
     ]);
     $res = $req -> fetchall();
 
     if ($res) {
-      $req = $bdd->co_bdd()->prepare('DELETE FROM utilisateur
-        WHERE utilisateur.idUtil = :idUtil
+      $req = $bdd->co_bdd()->prepare('DELETE FROM ticket
+        WHERE ticket.id = :id
       ');
 
       if ($res2) {
-        header("Location: ../vue/ListeUtil.php");
+        header("Location: ../vue/ListeTicket.php");
         //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
       }
 
 # Si un ou plusieurs champs sont vides.
 
       else {
-        header("Location: ../vue/ListeUtil.php");
+        header("Location: ../vue/ListeTicket.php");
         throw new Exception("Inscription échouée !");
       }
     }

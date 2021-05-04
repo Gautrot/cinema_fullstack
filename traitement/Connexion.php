@@ -2,6 +2,7 @@
 require_once '../model/Utilisateur.php';
 require_once '../manager/Manager.php';
 
+#Vérifie si un mot de passe et un email sont saisis
 try {
   #Instancie la classe Utilisateur
   $user = new Utilisateur([

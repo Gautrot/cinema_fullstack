@@ -64,7 +64,7 @@ $res = $liste->listeUtilisateur();
                     <th>Email</th>
                     <th>Mot de passe</th>
                     <th>Rang</th>
-                    <th style="width:50px">Selectionner</th>
+                    <th style="width:50px">Sélectionner</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -73,12 +73,13 @@ $res = $liste->listeUtilisateur();
                     foreach ($res as $value) {
                     ?>
                     <tr>
-                      <td name="<?php echo $value['idUtil']; ?>" value="<?php echo $value['idUtil']; ?>"><?php echo $value['idUtil']; ?></td>
-                      <td name="<?php echo $value['nom']; ?>" value="<?php echo $value['nom']; ?>"><?php echo $value['nom']; ?></td>
-                      <td name="<?php echo $value['prenom']; ?>" value="<?php echo $value['prenom']; ?>"><?php echo $value['prenom']; ?></td>
-                      <td name="<?php echo $value['email']; ?>" value="<?php echo $value['email']; ?>"><?php echo $value['email']; ?></td>
-                      <td name="<?php echo $value['mdp']; ?>" value="<?php echo $value['mdp']; ?>"><?php echo $value['mdp']; ?></td>
-                      <td name="<?php echo $value['rang']; ?>" value="<?php echo $value['rang']; ?>"><?php echo $value['rang']; ?></td>
+                      <td name="idUtil" value="idUtil"><?php echo $value['idUtil']; ?></td>
+                      <input name="idUtil" value="<?php echo $value['idUtil']; ?>" hidden />
+                      <td value="<?php echo $value['nom']; ?>"><?php echo $value['nom']; ?></td>
+                      <td value="<?php echo $value['prenom']; ?>"><?php echo $value['prenom']; ?></td>
+                      <td value="<?php echo $value['email']; ?>"><?php echo $value['email']; ?></td>
+                      <td value="<?php echo $value['mdp']; ?>"><?php echo $value['mdp']; ?></td>
+                      <td value="<?php echo $value['rang']; ?>"><?php echo $value['rang']; ?></td>
                       <td>
                         <input class="btn btn-primary" type="submit" value="Supprimer" />
                       </td>
