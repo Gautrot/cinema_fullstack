@@ -39,6 +39,7 @@ $res2 = $listetarif->listeTarif();
         <hr class="featurette-divider">
       </div>
       <div class="bg-dark p-5">
+        <!-- Container -->
         <div class="container">
           <?php
           if (isset($_SESSION['erreur'])) {

@@ -11,10 +11,8 @@ $res = $liste->listeTicket();
     <?php include '../include/head.php'; ?>
     <title>Liste de tickets</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
-
     <!-- Bootstrap core CSS -->
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="../bootstrap/css/addition/carousel.css" rel="stylesheet">
   </head>

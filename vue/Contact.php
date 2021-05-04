@@ -36,7 +36,6 @@ require_once '../manager/Manager.php';
       <div class="bg-light container">
         <hr class="featurette-divider">
       </div>
-      <!-- Fin container -->
       <!-- Footer -->
       <?php include '../include/footer.php'; ?>
       <!-- Fin Footer -->

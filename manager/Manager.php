@@ -70,10 +70,19 @@ class Manager{
   public function connexion(Utilisateur $user) {
 # Instancie la classe BDD
     $bdd = new BDD();
-    $req = $bdd->co_bdd()->prepare('SELECT * FROM utilisateur
-      WHERE email = :email
-      AND mdp = :mdp
-    ');
+
+# Si le checkbox "Se souvenir de moi n'est pas coché.
+
+    if (!isset($_COOKIE["email"])) {
+      $req = $bdd->co_bdd()->prepare('SELECT * FROM utilisateur WHERE email = :email AND mdp = :mdp');
+    }
+
+# Sinon il connecte automatiquement l'utilisateur.
+
+    else {
+      $req = $bdd->co_bdd()->prepare('SELECT * FROM utilisateur WHERE email = :email');
+    }
+
     $req -> execute([
       'email' => $user->getEmail(),
       'mdp' => $user->getMdp()
@@ -83,6 +92,20 @@ class Manager{
 # Si le formulaire de connexion est complété et trouvé dans la BDD.
 
     if ($res) {
+
+# Si le checkbox "Se souvenir de moi est coché, il saisi automatiquement l'email dans le formulaire.
+
+      if (!empty($_POST["remember"])) {
+        setcookie ("email",$_POST["email"],time()+ (10 * 365 * 24 * 60 * 60));
+      }
+
+# Sinon, il ne le fais pas.
+
+      else {
+        if (isset($_COOKIE["email"])) {
+          setcookie ("email","");
+        }
+      }
       $_SESSION['idUtil'] = $res['idUtil'];
       $_SESSION['nom'] = $res['nom'];
       $_SESSION['prenom'] = $res['prenom'];
@@ -95,7 +118,7 @@ class Manager{
 
     else {
       header("Location: ../index.php");
-      throw new Exception ("L'e-mail ou le mot de passe est incorrecte ou n'existe pas.");
+      throw new Exception ("Le mot de passe est incorrecte ou l'e-mail n'existe pas.");
     }
   }
 

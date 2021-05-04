@@ -14,10 +14,8 @@ $res = $listetarif->listeTarif();
     <?php include '../include/head.php'; ?>
     <title>Accueil</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
-
     <!-- Bootstrap core CSS -->
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -26,14 +24,12 @@ $res = $listetarif->listeTarif();
         -moz-user-select: none;
         user-select: none;
       }
-
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
       }
     </style>
-
     <!-- Custom styles for this template -->
     <link href="../bootstrap/css/addition/carousel.css" rel="stylesheet">
   </head>
@@ -47,6 +43,7 @@ $res = $listetarif->listeTarif();
     <!-- Fin Header -->
     <!-- Contenu -->
     <main>
+      <!-- Carousel -->
       <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -125,8 +122,9 @@ $res = $listetarif->listeTarif();
         </button>
       </div>
       <!-- Fin carousel -->
+      <!-- Container -->
       <div class="container">
-        <!-- Three columns of text below the carousel -->
+        <!-- Tarif -->
         <div class="text-center">
           <h1 class="display-4">Tarifs</h1>
           <p class="lead">Liste des tarifs disponible dans le cinéma.</p>
@@ -148,18 +146,7 @@ $res = $listetarif->listeTarif();
           </div>
           ';} ?>
         </div>
-        <!-- START THE FEATURETTES
-        <hr class="featurette-divider">
-        <div class="row">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-            <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
-          </div>
-          <div class="col-md-5">
-            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-          </div>
-        </div>
-         -->
+        <!-- Fin Tarif -->
       </div>
       <!-- Fin container -->
       <!-- Footer -->

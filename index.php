@@ -36,15 +36,14 @@ if (session_status() == PHP_SESSION_NONE) {
           <h1 class="h3 m-3 fw-normal">Se connecter</h1>
           <hr>
           <div class="mx-auto col-6 m-2">
-            <input type="email" name="email" class="form-control" placeholder="E-mail" required autofocus>
+            <input type="email" name="email" value="<?php if(isset($_COOKIE["email"])) { echo $_COOKIE["email"]; } ?>" class="form-control" placeholder="E-mail" required autofocus>
           </div>
           <div class="mx-auto col-6 m-1">
             <input type="password" name="mdp" class="form-control" placeholder="Mot de passe" required>
           </div>
           <div class="checkbox m-3">
-            <label>
-              <input type="checkbox" value="remember-me"> Se souvenir de moi
-            </label>
+              <input type="checkbox" value="remember" id="remember" <?php if(isset($_COOKIE["email"])) { ?> checked <?php } ?> />
+              <label for="remember-me">Se souvenir de moi</label>
           </div>
           <button class="w-50 btn btn-primary" type="submit">Se connecter</button>
         </form>

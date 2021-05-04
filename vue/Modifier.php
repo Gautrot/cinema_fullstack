@@ -1,10 +1,10 @@
 <?php
 require_once '../manager/Manager.php';
 ?>
+
 <html lang="en">
   <!-- Header -->
   <?php include('../include/head.php'); ?>
-
   <title>Modifier</title>
   <!-- Fin Header -->
   <body class="bg-dark">

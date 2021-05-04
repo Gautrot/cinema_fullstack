@@ -5,7 +5,6 @@ require_once '../manager/Manager.php';
 
 #Instancie la classe Manager
 $test = new Manager();
-
 ?>
 
 <!doctype html>
@@ -34,6 +33,7 @@ $test = new Manager();
         <hr class="featurette-divider">
       </div>
       <div class="bg-dark p-5">
+        <!-- Container -->
         <div class="container">
           <h1>Valider la réserve</h1>
           <div class="row mx-auto col-6 card card-body shadow-lg my-5 text-center">

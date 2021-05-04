@@ -9,7 +9,6 @@ setlocale(LC_ALL, 'fr_FR');
 $numsalle = new Manager();
 #Lance la méthode listeSalle
 $res = $numsalle->listeSalle($_SESSION['nomFilm']);
-
 ?>
 
 <!doctype html>
@@ -18,10 +17,8 @@ $res = $numsalle->listeSalle($_SESSION['nomFilm']);
     <?php include '../include/head.php'; ?>
     <title><?php echo str_replace('_', ' ', $_SESSION['nomFilm']); ?></title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
-
     <!-- Bootstrap core CSS -->
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -30,14 +27,12 @@ $res = $numsalle->listeSalle($_SESSION['nomFilm']);
         -moz-user-select: none;
         user-select: none;
       }
-
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
       }
     </style>
-
     <!-- Custom styles for this template -->
     <link href="../bootstrap/css/addition/carousel.css" rel="stylesheet">
   </head>
@@ -53,6 +48,7 @@ $res = $numsalle->listeSalle($_SESSION['nomFilm']);
       <div class="container">
         <hr class="featurette-divider">
       </div>
+      <!-- Film -->
       <div class="bg-dark p-5">
         <div class="container">
           <!-- START THE FEATURETTES -->
@@ -96,13 +92,11 @@ $res = $numsalle->listeSalle($_SESSION['nomFilm']);
                     <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
                   </svg>
                   <p class="fs-6 text-dark">
-
                     <?php
                     foreach ($res as $value) {
                       echo $value['numSalle'] .' ';
                     }
                     ?>
-
                   </p>
                 </div>
               </div>
@@ -110,12 +104,59 @@ $res = $numsalle->listeSalle($_SESSION['nomFilm']);
           </div>
         </div>
       </div>
+      <!-- Fin Film -->
+      <!-- Commentaires -->
       <div class="container">
         <hr class="featurette-divider">
         <div class="col-md-7">
           <h2 class="featurette-heading" id="Commentaires">Commentaires</h2>
         </div>
         <hr class="featurette-divider">
+        <!-- Ajout Commentaires -->
+        <div class="row mb-3 text-center">
+          <div class="col">
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <div class="text-start m-2">
+                  <ul class="list-inline">
+                    <li class="list-inline-item">
+                      <p class="d-inline-block ps-2">Saisir une note : </p>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="primary" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="primary" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="primary" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="primary" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="primary" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                      </svg>
+                    </li>
+                  </ul>
+                </div>
+                <h3 class="m-3 card-title text-end position-absolute top-0 end-0">Ajouter un commentaire</h3>
+              </div>
+              <div class="ms-3 me-3 mt-3">
+                <ul class="list-unstyled text-start">
+                  <li>
+                    <textarea rows="4" cols="177"></textarea>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-footer">
+                <form action="../vue/Film_1.php" method="post">
+                  <button class="btn btn-primary" type="submit">Envoyer</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Fin Ajout Commentaires -->
         <div class="row mb-3 text-center">
           <div class="col">
             <div class="card mb-4 shadow-sm">
@@ -130,7 +171,7 @@ $res = $numsalle->listeSalle($_SESSION['nomFilm']);
                 <div class="text-start m-2">
                   <ul class="list-inline">
                     <li class="list-inline-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="primary" class="bi bi-star-fill" viewBox="0 0 16 16">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="primary" class="bi bi-star-fill" viewBox="0 0 16 16">
                         <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                         <p class="d-inline-block ps-2">4.0</p>
                       </svg>
@@ -163,6 +204,7 @@ $res = $numsalle->listeSalle($_SESSION['nomFilm']);
             </div>
           </div>
         </div>
+        <!-- Fin Commentaires -->
       </div>
       <!-- Fin Container -->
     </main>
