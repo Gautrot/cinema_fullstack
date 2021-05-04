@@ -1,17 +1,16 @@
 <?php
-require_once '../model/Salle.php';
+require_once '../model/Utilisateur.php';
 require_once '../manager/Manager.php';
 
 try {
-  #Instancie la classe Salle
-  $salle = new Salle([
-    'numSalle' => $_POST['numSalle'],
-    'numRes' => $_POST['numRes']
+  #Instancie la classe Utilisateur
+  $user = new Utilisateur([
+    'email' => $_POST['email']
   ]);
   #Instancie la classe Manager
   $manager = new Manager();
-  #Lance la méthode selectSalle
-  $manager->selectSalle($salle);
+  #Lance la méthode connexion
+  $manager->oublieMdp($user);
 }
 
 #Affiche un message d'erreur

@@ -1,6 +1,6 @@
 <?php
 class Recap{
-  private $id, $idUtil, $idSalle;
+  private $id, $idUtil, $idSalle, $idTarif;
 
   public function __construct($donnees){
     $this->hydrate($donnees);
@@ -20,6 +20,10 @@ class Recap{
     return $this->idSalle;
   }
 
+  public function getIdTarif() {
+    return $this->idTarif;
+  }
+
 # Setters
 
   public function setId($id) {
@@ -35,6 +39,12 @@ class Recap{
   public function setIdSalle($idSalle) {
     if (is_string($idSalle)) {
       $this->idSalle = $idSalle;
+    }
+  }
+
+  public function setIdTarif($idTarif) {
+    if (is_string($idTarif)) {
+      $this->idTarif = $idTarif;
     }
   }
 

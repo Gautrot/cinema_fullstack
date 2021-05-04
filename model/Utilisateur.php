@@ -1,6 +1,6 @@
 <?php
 class Utilisateur{
-  private $idUtil, $nom, $prenom, $email, $mdp, $rang, $idTarif;
+  private $idUtil, $nom, $prenom, $email, $mdp, $rang, $placeRes, $sommeTarif;
 
   public function __construct($donnees){
     $this->hydrate($donnees);
@@ -10,10 +10,6 @@ class Utilisateur{
 
   public function getIdUtil() {
     return $this->idUtil;
-  }
-
-  public function getIdTarif() {
-    return $this->idTarif;
   }
 
   public function getEmail() {
@@ -36,14 +32,18 @@ class Utilisateur{
     return $this->rang;
   }
 
+  public function getPlaceRes() {
+    return $this->placeRes;
+  }
+
+  public function getSommeTarif() {
+    return $this->sommeTarif;
+  }
+
 # Setters
 
   public function setIdUtil($idUtil) {
     $this->idUtil = $idUtil;
-  }
-
-  public function setIdTarif($idTarif) {
-    $this->idTarif = $idTarif;
   }
 
   public function setEmail($email) {
@@ -74,6 +74,14 @@ class Utilisateur{
     if (is_string($rang)) {
       $this->rang = $rang;
     }
+  }
+
+  public function setSommeTarif($sommeTarif) {
+    $this->sommeTarif = $sommeTarif;
+  }
+
+  public function setPlaceRes($placeRes) {
+    $this->placeRes = $placeRes;
   }
 
 # Hydratation

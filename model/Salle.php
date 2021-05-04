@@ -1,6 +1,6 @@
 <?php
 class Salle{
-  private $idSalle, $numSalle, $numPlace, $idFilm;
+  private $idSalle, $numSalle, $numPlace, $maxPlace, $idFilm;
 
   public function __construct($donnees){
     $this->hydrate($donnees);
@@ -22,6 +22,10 @@ class Salle{
 
   public function getNumPlace() {
     return $this->numPlace;
+  }
+
+  public function getMaxPlace() {
+    return $this->maxPlace;
   }
 
 # Setters
@@ -47,6 +51,12 @@ class Salle{
   public function setNumPlace($numPlace) {
     if (is_int($numPlace)) {
       $this->numPlace = $numPlace;
+    }
+  }
+
+  public function setMaxPlace($maxPlace) {
+    if (is_int($maxPlace)) {
+      $this->maxPlace = $maxPlace;
     }
   }
 

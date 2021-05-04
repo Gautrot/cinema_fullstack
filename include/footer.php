@@ -1,45 +1,40 @@
 <!-- Footer -->
 <footer class="footer sticky-footer bg-dark rounded-top section section-sm">
-    <!-- Container Start -->
-    <div class="container">
-        <div class="row">
-                <div class="mt-2 col-lg-3 col-md-3 offset-md-1 offset-lg-1">
-                    <!-- About -->
-                    <div class="block about">
-                        <h4>Contacts</h4>
-                        <!-- description -->
-                        <p class="alt-color">
-                            Avenue Ambroise Croizat - 93440 Dugny<br>
-                            01 49 34 11 54
-                        </p>
-                    </div>
-                </div>
-                <!-- Link list -->
-                <div class="mt-2 col-lg-3 col-md-3 offset-md-1 offset-lg-1">
-                    <div class="block">
-                        <h4>Liens rapides</h4>
-                        <form action="../vue/contact.php" method="post">
-                            <a href="../vue/contact.php">Contact</a>
-                        </form>
-                    </div>
-                </div>
-                <!-- Link list -->
-                <div class="mt-2 col-lg-3 col-md-3 offset-md-1 offset-lg-0">
-                    <div class="block">
-                        <h4>Accès</h4>
-                        <p>
-                            Bus 133 - Arrêt Gabriel Peri<br>
-                            Bus 249 - Arrêt Leo Lagrang
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <!-- Container Start -->
+  <div class="container">
+    <div class="row">
+      <!-- Météo API -->
+      <div class="mt-2 col-lg-3 col-md-3 offset-md-1 offset-lg-0">
+        <h4>Météo</h4>
+        <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+        <div class="elfsight-app-3b7bb7de-0262-4d60-b855-2f769899b80b"></div>
+      </div>
+      <!-- Liens rapides -->
+      <div class="mt-2 col-lg-3 col-md-3 offset-md-1 offset-lg-1">
+        <h4>Liens rapides</h4>
+        <form action="../vue/contact.php" method="post">
+          <a href="../vue/contact.php">Contact</a>
+        </form>
+      </div>
+      <!-- Google Maps API -->
+      <div class="mt-2 col-lg-3 col-md-3 offset-md-1 offset-lg-0">
+        <h4>Accès</h4>
+        <iframe
+          width="600"
+          height="450"
+          style="border:0"
+          loading="lazy"
+          allowfullscreen
+          src="https://www.google.com/maps/embed/v1/place
+            ?key=AIzaSyBGOHQOO2ESfYswiUrkNtZt5YahdB70WzY
+            &q=Eiffel+Tower,Paris+France
+        ">
+        </iframe>
+      </div>
     </div>
-    <div class="bg-info">
-        <p class="text-center m-2">
-            Projet © 2021
-        </p>
-    </div>
-    <!-- Container End -->
+  </div>
+  <div class="bg-info">
+    <p class="text-center m-2">Projet © 2021</p>
+  </div>
+  <!-- Container End -->
 </footer>
