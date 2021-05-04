@@ -68,18 +68,20 @@ $res = $liste->listeUtilisateur();
                   </tr>
                 </thead>
                 <tbody>
-                  <form method="post" action="../traitement/SupprUtil.php">
+                  <form method="post" action="../traitement/DeleteUtil.php">
                     <?php
                     foreach ($res as $value) {
                     ?>
                     <tr>
-                      <td name="<?php echo $value['idUtil']; ?>"><?php echo $value['idUtil']; ?></td>
-                      <td name="<?php echo $value['nom']; ?>"><?php echo $value['nom']; ?></td>
-                      <td name="<?php echo $value['prenom']; ?>"><?php echo $value['prenom']; ?></td>
-                      <td name="<?php echo $value['email']; ?>"><?php echo $value['email']; ?></td>
-                      <td name="<?php echo $value['mdp']; ?>"><?php echo $value['mdp']; ?></td>
-                      <td name="<?php echo $value['rang']; ?>"><?php echo $value['rang']; ?></td>
-                      <td><input class="btn btn-primary" type="submit" value="Supprimer" /></td>
+                      <td name="<?php echo $value['idUtil']; ?>" value="<?php echo $value['idUtil']; ?>"><?php echo $value['idUtil']; ?></td>
+                      <td name="<?php echo $value['nom']; ?>" value="<?php echo $value['nom']; ?>"><?php echo $value['nom']; ?></td>
+                      <td name="<?php echo $value['prenom']; ?>" value="<?php echo $value['prenom']; ?>"><?php echo $value['prenom']; ?></td>
+                      <td name="<?php echo $value['email']; ?>" value="<?php echo $value['email']; ?>"><?php echo $value['email']; ?></td>
+                      <td name="<?php echo $value['mdp']; ?>" value="<?php echo $value['mdp']; ?>"><?php echo $value['mdp']; ?></td>
+                      <td name="<?php echo $value['rang']; ?>" value="<?php echo $value['rang']; ?>"><?php echo $value['rang']; ?></td>
+                      <td>
+                        <input class="btn btn-primary" type="submit" value="Supprimer" />
+                      </td>
                     </tr>
                     <?php
                     }
@@ -112,6 +114,7 @@ $res = $liste->listeUtilisateur();
             }
             ?>
           </p>
+        </div>
         <!-- Fin Tableau -->
       </div>
       <div class="bg-light container">

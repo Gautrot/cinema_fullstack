@@ -476,7 +476,7 @@ Partie Administration
 ----
 */
 
-# Inscription
+# Ajout d'utilisateur
 
   public function addUtil(Utilisateur $user) {
     #Instancie la classe BDD
@@ -511,6 +511,38 @@ Partie Administration
         'prenom' => $user->getPrenom(),
         'rang' => $user->getRang(),
       ]);
+      if ($res2) {
+        header("Location: ../vue/ListeUtil.php");
+        //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
+      }
+
+# Si un ou plusieurs champs sont vides.
+
+      else {
+        header("Location: ../vue/ListeUtil.php");
+        throw new Exception("Inscription échouée !");
+      }
+    }
+  }
+
+# Suppresion d'utilisateur
+
+  public function deleteUtil(Utilisateur $user) {
+    #Instancie la classe BDD
+    $bdd = new BDD();
+    $req = $bdd -> co_bdd()->prepare('SELECT * FROM utilisateur
+      WHERE idUtil = :idUtil
+    ');
+    $req -> execute([
+      'idUtil' => $user->getIdUtil()
+    ]);
+    $res = $req -> fetchall();
+
+    if ($res) {
+      $req = $bdd->co_bdd()->prepare('DELETE FROM utilisateur
+        WHERE utilisateur.idUtil = :idUtil
+      ');
+
       if ($res2) {
         header("Location: ../vue/ListeUtil.php");
         //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
