@@ -4,7 +4,7 @@ require_once '../manager/Manager.php';
 
 #Instancie la classe Manager
 $listetarif = new Manager();
-#Lance la méthode inscription
+#Lance la méthode listeTarif
 $res = $listetarif->listeTarif();
 ?>
 

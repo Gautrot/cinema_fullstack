@@ -424,6 +424,16 @@ Partie Administration
 ----
 */
 
+# Liste les salles de la BDD
+
+  public function listeAllSalle(){
+    #Instancie la classe BDD
+    $bdd = new BDD();
+    $req = $bdd -> co_bdd()->prepare('SELECT numSalle FROM salle');
+    $req->execute([]);
+    $salle = $req->fetchall();
+    return $salle;
+  }
 
 # Liste les salles de la BDD
 
