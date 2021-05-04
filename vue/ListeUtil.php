@@ -3,7 +3,6 @@ require_once '../manager/Manager.php';
 
 $liste = new Manager();
 $res = $liste->listeUtilisateur();
-
 ?>
 
 <!doctype html>
@@ -15,22 +14,6 @@ $res = $liste->listeUtilisateur();
 
     <!-- Bootstrap core CSS -->
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
 
     <!-- Custom styles for this template -->
     <link href="../bootstrap/css/addition/carousel.css" rel="stylesheet">
@@ -75,11 +58,16 @@ $res = $liste->listeUtilisateur();
                     <tr>
                       <td name="idUtil" value="idUtil"><?php echo $value['idUtil']; ?></td>
                       <input name="idUtil" value="<?php echo $value['idUtil']; ?>" hidden />
-                      <td value="<?php echo $value['nom']; ?>"><?php echo $value['nom']; ?></td>
-                      <td value="<?php echo $value['prenom']; ?>"><?php echo $value['prenom']; ?></td>
-                      <td value="<?php echo $value['email']; ?>"><?php echo $value['email']; ?></td>
-                      <td value="<?php echo $value['mdp']; ?>"><?php echo $value['mdp']; ?></td>
-                      <td value="<?php echo $value['rang']; ?>"><?php echo $value['rang']; ?></td>
+                      <td name="nom" value="nom"><?php echo $value['nom']; ?></td>
+                      <input name="nom" value="<?php echo $value['nom']; ?>" hidden />
+                      <td name="prenom" value="prenom"><?php echo $value['prenom']; ?></td>
+                      <input name="prenom" value="<?php echo $value['prenom']; ?>" hidden />
+                      <td name="email" value="email"><?php echo $value['email']; ?></td>
+                      <input name="email" value="<?php echo $value['email']; ?>" hidden />
+                      <td name="mdp" value="mdp"><?php echo $value['mdp']; ?></td>
+                      <input name="mdp" value="<?php echo $value['mdp']; ?>" hidden />
+                      <td name="rang" value="rang"><?php echo $value['rang']; ?></td>
+                      <input name="rang" value="<?php echo $value['rang']; ?>" hidden />
                       <td>
                         <input class="btn btn-primary" type="submit" value="Supprimer" />
                       </td>

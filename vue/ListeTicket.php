@@ -3,7 +3,6 @@ require_once '../manager/Manager.php';
 
 $liste = new Manager();
 $res = $liste->listeTicket();
-
 ?>
 
 <!doctype html>
@@ -15,22 +14,6 @@ $res = $liste->listeTicket();
 
     <!-- Bootstrap core CSS -->
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
 
     <!-- Custom styles for this template -->
     <link href="../bootstrap/css/addition/carousel.css" rel="stylesheet">
@@ -71,10 +54,14 @@ $res = $liste->listeTicket();
                     foreach ($res as $value) {
                     ?>
                     <tr>
-                      <td name="<?php echo $value['id']; ?>" value="<?php echo $value['id']; ?>"><?php echo $value['id']; ?></td>
-                      <td name="<?php echo $value['idUtil']; ?>" value="<?php echo $value['idUtil']; ?>"><?php echo $value['idUtil']; ?></td>
-                      <td name="<?php echo $value['idSalle']; ?>" value="<?php echo $value['idSalle']; ?>"><?php echo $value['idSalle']; ?></td>
-                      <td name="<?php echo $value['idTarif']; ?>" value="<?php echo $value['idTarif']; ?>"><?php echo $value['idTarif']; ?></td>
+                      <td name="id" value="id"><?php echo $value['id']; ?></td>
+                      <input name="id" value="<?php echo $value['id']; ?>" hidden />
+                      <td name="idUtil" value="idUtil"><?php echo $value['idUtil']; ?></td>
+                      <input name="idUtil" value="<?php echo $value['idUtil']; ?>" hidden />
+                      <td name="idSalle" value="idSalle"><?php echo $value['idSalle']; ?></td>
+                      <input name="idSalle" value="<?php echo $value['idSalle']; ?>" hidden />
+                      <td name="idTarif" value="idTarif"><?php echo $value['idTarif']; ?></td>
+                      <input name="idTarif" value="<?php echo $value['idTarif']; ?>" hidden />
                       <td><input class="btn btn-primary" type="submit" value="Supprimer" /></td>
                     </tr>
                     <?php

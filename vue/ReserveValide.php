@@ -18,22 +18,6 @@ $test = new Manager();
     <!-- Bootstrap core CSS -->
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
     <!-- Custom styles for this template -->
     <link href="../bootstrap/css/addition/carousel.css" rel="stylesheet">
   </head>
@@ -53,7 +37,7 @@ $test = new Manager();
         <div class="container">
           <h1>Valider la réserve</h1>
           <div class="row mx-auto col-6 card card-body shadow-lg my-5 text-center">
-            <form action="../traitement/SelectSalle.php" method="post">
+            <form action="../traitement/ReserveValide.php" method="post">
               <div class="form-group row">
                 <div class="col-8 mt-1">
                   <p class="text-start">Film</p>

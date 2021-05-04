@@ -1,4 +1,3 @@
-<!-- Footer -->
 <footer class="footer sticky-footer bg-dark rounded-top section section-sm">
   <!-- Container Start -->
   <div class="container">

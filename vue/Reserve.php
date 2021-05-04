@@ -3,8 +3,6 @@ require_once '../model/Film.php';
 require_once '../model/Salle.php';
 require_once '../manager/Manager.php';
 
-var_dump($_SESSION);
-
 #Instancie la classe Manager
 $numsalle = new Manager();
 #Lance la méthode listeSalle
@@ -25,22 +23,6 @@ $res2 = $listetarif->listeTarif();
     <!-- Bootstrap core CSS -->
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
     <!-- Custom styles for this template -->
     <link href="../bootstrap/css/addition/carousel.css" rel="stylesheet">
   </head>
@@ -58,6 +40,20 @@ $res2 = $listetarif->listeTarif();
       </div>
       <div class="bg-dark p-5">
         <div class="container">
+          <?php
+          if (isset($_SESSION['erreur'])) {
+            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    '.$_SESSION['erreur'].'
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>';
+          }
+          if (isset($_SESSION['succes'])) {
+            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    '.$_SESSION['succes'].'
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>';
+          }
+          ?>
           <h1>Réserver une place pour <?php echo str_replace('_', ' ', $_SESSION['nomFilm']); ?></h1>
           <div class="row mx-auto col-6 card card-body shadow-lg my-5 text-center">
             <form action="../traitement/Reserve.php" method="post">
@@ -129,4 +125,10 @@ $res2 = $listetarif->listeTarif();
   <!-- Footer -->
   <?php include '../include/footer.php'; ?>
   <!-- Fin Footer -->
+  <script>
+    var alertList = document.querySelectorAll('.alert')
+    alertList.forEach(function (alert) {
+    new bootstrap.Alert(alert)
+    })
+  </script>
 </html>
