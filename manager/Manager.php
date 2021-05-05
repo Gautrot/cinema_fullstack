@@ -228,23 +228,17 @@ class Manager{
       'idUtil' => $user->getIdUtil()
     ]);
 
-    var_dump($_POST['mdp']);
-    var_dump($req);
-    var_dump($res);
-    var_dump($_SESSION);
-
 # Si le nouveau mot de passe est saisie, il redirige vers le formulaire de connexion.
 
     if ($res) {
-      //header("Location: ../index.php");
+      header("Location: ../index.php");
       //throw new Exception("Votre compte à été crée avec succès !<br>Un e-mail sera envoyé pour valider votre inscription.");
     }
 
 # Si un ou plusieurs champs sont vides.
 
     else {
-      die();
-      //header("Location: ../vue/NouvMdp.php");
+      header("Location: ../vue/NouvMdp.php");
       throw new Exception("Modification échouée !");
     }
   }
