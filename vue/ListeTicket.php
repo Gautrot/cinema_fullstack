@@ -43,7 +43,7 @@ $res = $liste->listeTicket();
                     <th>ID Utilisateur</th>
                     <th>ID Salle</th>
                     <th>ID Tarif</th>
-                    <th style="width:50px">Selectionner</th>
+                    <th style="width:50px">Sélectionner</th>
                   </tr>
                 </thead>
                 <tbody>

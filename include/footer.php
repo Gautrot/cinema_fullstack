@@ -18,17 +18,7 @@
       <!-- Google Maps API -->
       <div class="mt-2 col-lg-3 col-md-3 offset-md-1 offset-lg-0">
         <h4>Accès</h4>
-        <iframe
-          width="600"
-          height="450"
-          style="border:0"
-          loading="lazy"
-          allowfullscreen
-          src="https://www.google.com/maps/embed/v1/place
-            ?key=AIzaSyBGOHQOO2ESfYswiUrkNtZt5YahdB70WzY
-            &q=Eiffel+Tower,Paris+France
-        ">
-        </iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2620.2196188898365!2d2.413202315021415!3d48.94930390225611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66b9c6b0800f7%3A0xa35833adc1739e08!2sLyc%C3%A9e%20Robert%20Schuman!5e0!3m2!1sfr!2sfr!4v1620196964728!5m2!1sfr!2sfr" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
       </div>
     </div>
   </div>

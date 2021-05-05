@@ -61,7 +61,7 @@ $res = $numsalle->listeSalle($_SESSION['nomFilm']);
               </form>
             </div>
             <div class="col-4">
-              <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+              <img src="../img/Film_2.jpg" style="background-color:#777; width:99%" alt="Film 2">
               <div class="mt-2 p-2 bg-primary">
                 <div class="me-5 d-inline-block">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="primary" class="bi bi-star-fill" viewBox="0 0 16 16">

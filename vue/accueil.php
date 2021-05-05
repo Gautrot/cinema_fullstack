@@ -52,7 +52,7 @@ $res = $listetarif->listeTarif();
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><img src="../img/Film_1.jpg" style="object-fit:contain; background-color:#777" alt="Film 1"></svg>
             <div class="carousel-caption text-start">
               <h1>Film 1</h1>
               <p>Contenu du Film 1.</p>
@@ -72,7 +72,7 @@ $res = $listetarif->listeTarif();
             </div>
           </div>
           <div class="carousel-item">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><img src="../img/Film_2.jpg" style="object-fit:contain; background-color:#777" alt="Film 2"></svg>
             <div class="carousel-caption text-start">
               <h1>Film 2</h1>
               <p>Contenu du Film 2.</p>
@@ -92,7 +92,7 @@ $res = $listetarif->listeTarif();
             </div>
           </div>
           <div class="carousel-item">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><img src="../img/Film_3.jpg" style="object-fit:contain; background-color:#777" alt="Film 3"></svg>
             <div class="carousel-caption text-start">
               <h1>Film 3</h1>
               <p>Contenu du Film 3.</p>
