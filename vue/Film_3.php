@@ -144,7 +144,7 @@ $res = $numsalle->listeSalle($_SESSION['nomFilm']);
               <div class="ms-3 me-3 mt-3">
                 <ul class="list-unstyled text-start">
                   <li>
-                    <textarea rows="4" cols="177"></textarea>
+                    <textarea rows="4" cols="100"></textarea>
                   </li>
                 </ul>
               </div>

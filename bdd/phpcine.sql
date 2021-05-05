@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 03 mai 2021 à 10:09
+-- Généré le :  mer. 05 mai 2021 à 07:10
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -132,14 +132,33 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `placeRes` int(3) DEFAULT NULL,
   `sommeTarif` float DEFAULT NULL,
   PRIMARY KEY (`idUtil`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`idUtil`, `rang`, `nom`, `prenom`, `email`, `mdp`, `placeRes`, `sommeTarif`) VALUES
-(1, 'ADMIN', 'A', 'A', 'a@gmail.com', 'a', NULL, NULL);
+(1, 'ADMIN', 'A', 'A', 'a@gmail.com', 'a', NULL, NULL),
+(2, 'USER', 'B', 'B', 'b@gmail.com', 'b', NULL, NULL);
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `salle`
+--
+ALTER TABLE `salle`
+  ADD CONSTRAINT `salle_ibfk_1` FOREIGN KEY (`idFilm`) REFERENCES `film` (`idFilm`);
+
+--
+-- Contraintes pour la table `ticket`
+--
+ALTER TABLE `ticket`
+  ADD CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`idUtil`) REFERENCES `utilisateur` (`idUtil`),
+  ADD CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`idSalle`),
+  ADD CONSTRAINT `ticket_ibfk_3` FOREIGN KEY (`idTarif`) REFERENCES `tarif` (`idTarif`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
