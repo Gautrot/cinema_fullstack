@@ -11,7 +11,7 @@ $res = $salle->listeAllSalle();
 <html lang="fr">
   <head>
     <?php include '../include/head.php'; ?>
-    <title>Réservation</title>
+    <title>Ajouter un film</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
 
     <!-- Bootstrap core CSS -->

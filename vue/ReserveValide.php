@@ -11,7 +11,7 @@ $test = new Manager();
 <html lang="fr">
   <head>
     <?php include '../include/head.php'; ?>
-    <title>Réservation</title>
+    <title>Valider la réservation</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
 
     <!-- Bootstrap core CSS -->

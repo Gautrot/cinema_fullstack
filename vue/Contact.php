@@ -15,7 +15,7 @@ require_once '../manager/Manager.php';
     <style>
   .container2 {
     position: relative;
-    width: 25em;
+    width: 20em;
   }
 
   .image2 {
@@ -70,7 +70,7 @@ require_once '../manager/Manager.php';
         <div class="container">
           <h1>Contact</h1>
           <div class="container2">
-            <img src="../img/img_avatar.png" style="width:25em" alt="Avatar" class="image2">
+            <img src="../img/img_avatar.png" style="width:20em" alt="Avatar" class="image2">
             <div class="overlay2">
               <div class="text2">Alexandre GAUTROT<br/>Email : a.gautrot@lprs.fr<br/>Téléphone : 07 67 43 59 85</div>
             </div>
